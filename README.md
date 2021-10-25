@@ -1,2 +1,6 @@
-# proyecto-p1-estructuras-datos
-Proyecto #1 de Estructuras de Datos -- ESPOL II PAO 2021
+# Proyecto #1 de Estructuras de Datos
+
+## Integrantes
+
+- Juan Antonio González Orbe (`juangonz@espol.edu.ec`)
+- Steven Guillermo Encalada Pincay (`sencalad@espol.edu.ec`)
