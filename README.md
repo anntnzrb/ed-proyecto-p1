@@ -2,5 +2,14 @@
 
 ## Integrantes
 
-- Juan Antonio González Orbe (`juangonz@espol.edu.ec`)
-- Steven Guillermo Encalada Pincay (`sencalad@espol.edu.ec`)
+- *Juan Antonio González Orbe*
+  - `juangonz@espol.edu.ec`
+  - **GitHub**: `anntnzrb`
+
+- *Steven Guillermo Encalada Pincay*
+  - `sencalad@espol.edu.ec`
+  - **GitHub**: `???`
+
+- *???*
+  - `???`
+  - **GitHub**: `???`
