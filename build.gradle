@@ -12,7 +12,7 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.7.1'
+    junitVersion = '5.8.1'
 }
 
 sourceCompatibility = '11'
@@ -24,7 +24,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'ec.edu.espol.edproyectopi'
-    mainClass = 'ec.edu.espol.edproyectopi.HelloApplication'
+    mainClass = 'ec.edu.espol.edproyectopi.MainApp'
 }
 
 javafx {

@@ -12,14 +12,14 @@ import java.util.Objects;
 import static ec.edu.espol.edproyectopi.Config.SCENE_HEIGHT;
 import static ec.edu.espol.edproyectopi.Config.SCENE_WIDTH;
 
-public class HelloApplication extends Application {
+public class MainApp extends Application {
     public static void main(final String[] argv) {
         launch(argv);
     }
 
     @Override
     public final void start(final Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("hello-view.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
 
@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
 
         stage.setTitle("Sopa de Letras -- ED Proyecto P1 2021");
         stage.getIcons()
-             .add(new Image(Objects.requireNonNull(HelloApplication
+             .add(new Image(Objects.requireNonNull(MainApp
                      .class
                      .getResourceAsStream("icon.png"))));
         stage.setScene(scene);
