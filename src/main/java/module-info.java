@@ -5,4 +5,6 @@ module ec.edu.espol.edproyectopi {
 
     opens ec.edu.espol.edproyectopi to javafx.fxml;
     exports ec.edu.espol.edproyectopi;
+    exports ec.edu.espol.edproyectopi.controller;
+    opens ec.edu.espol.edproyectopi.controller to javafx.fxml;
 }

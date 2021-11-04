@@ -9,28 +9,37 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static ec.edu.espol.edproyectopi.Config.SCENE_HEIGHT;
-import static ec.edu.espol.edproyectopi.Config.SCENE_WIDTH;
-
 public class MainApp extends Application {
     public static void main(final String[] argv) {
         launch(argv);
     }
 
     @Override
-    public final void start(final Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("hello-view.fxml"));
+    public void init() {
+        System.out.println("Inicializando aplicación...");
+    }
 
-        Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
+    @Override
+    public void stop() {
+        System.out.println("Cerrando aplicación...");
+    }
 
-        stage.setResizable(false); // no resize
+    @Override
+    public final void start(final Stage primaryStage) throws IOException {
+        /* FXML */
+        final FXMLLoader fxmlLoader =
+                new FXMLLoader(MainApp.class.getResource("Main.fxml"));
 
-        stage.setTitle("Sopa de Letras -- ED Proyecto P1 2021");
-        stage.getIcons()
-             .add(new Image(Objects.requireNonNull(MainApp
-                     .class
-                     .getResourceAsStream("icon.png"))));
-        stage.setScene(scene);
-        stage.show();
+        /* ********************************************************************
+         * Stage
+         * ***************************************************************** */
+        primaryStage.setResizable(false); // no resize
+        primaryStage.setTitle("Sopa de Letras -- ED Proyecto P1 2021 (G11)");
+        primaryStage.getIcons()
+                    .add(new Image(Objects.requireNonNull(MainApp
+                            .class
+                            .getResourceAsStream("icon.png"))));
+        primaryStage.setScene(new Scene(fxmlLoader.load()));
+        primaryStage.show();
     }
 }
