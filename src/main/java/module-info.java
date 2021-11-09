@@ -7,4 +7,6 @@ module ec.edu.espol.edproyectopi {
     exports ec.edu.espol.edproyectopi;
     exports ec.edu.espol.edproyectopi.controller;
     opens ec.edu.espol.edproyectopi.controller to javafx.fxml;
+    exports ec.edu.espol.edproyectopi.juego;
+    opens ec.edu.espol.edproyectopi.juego to javafx.fxml;
 }
