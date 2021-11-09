@@ -1,1 +1,1 @@
-ecuador
+"ecuador", "panama", "japon", "peru", "", "mexico", "iran", "siria", "japon", "china", "canada", "kenia", "rusia", "chile", "india", "corea", "cuba","grecia", "irak"
