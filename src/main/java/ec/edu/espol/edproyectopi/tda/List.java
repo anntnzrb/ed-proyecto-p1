@@ -79,4 +79,18 @@ public interface List<E> extends Iterable<E> {
     E get(final int idx);
 
     E set(final int idx, final E e);
+
+    /**
+     * Modifica la colección dejando únicamente los elementos en el rango
+     * proporcionado.
+     *
+     * @param from posición desde donde tomar los elementos de la colección
+     * @param to   posición hasta donde tomar los elementos de la colección
+     * @return {@code true} sí se realizó la operación correctamente
+     */
+    boolean keepOnly(final int from, final int to);
+
+    void reverse();
+
+    List<E> insertAt(final List<E> xs, final int idx);
 }
