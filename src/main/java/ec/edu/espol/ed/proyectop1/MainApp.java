@@ -5,9 +5,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainApp extends Application {
 
@@ -19,7 +21,7 @@ public class MainApp extends Application {
      * @param fxml archivo de tipo FXML de la escena
      * @throws IOException arroja error si no se encuentra el archivo FXML
      */
-    static void setRoot(final String fxml) throws IOException {
+    public static void setRoot(final String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
@@ -59,7 +61,16 @@ public class MainApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("main"));
+        /* ********************************************************************
+         * Stage
+         * ***************************************************************** */
+        primaryStage.setResizable(false); // no resize
+        primaryStage.setTitle("Sopa de Letras (G11)");
+        primaryStage.getIcons()
+                    .add(new Image(Objects.requireNonNull(
+                            MainApp.class
+                                    .getResourceAsStream("icon.png"))));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
