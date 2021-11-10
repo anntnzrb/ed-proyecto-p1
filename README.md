@@ -8,7 +8,7 @@
 
 - *Steven Guillermo Encalada Pincay*
   - `sencalad@espol.edu.ec`
-  - **GitHub**: `sencalad`
+  - **GitHub**: `STEVEN2199`
 
 - *Stefany Natalia Farias Mera*
   - `snfarias@espol.edu.ec`
