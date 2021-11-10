@@ -1,0 +1,66 @@
+package ec.edu.espol.ed.proyectop1;
+
+import ec.edu.espol.ed.proyectop1.juego.Sistema;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class MainApp extends Application {
+
+    private static Scene scene;
+
+    /**
+     * Actualiza la escena, método empleado para cambiar escenas.
+     *
+     * @param fxml archivo de tipo FXML de la escena
+     * @throws IOException arroja error si no se encuentra el archivo FXML
+     */
+    static void setRoot(final String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    /**
+     * Busca y carga el archivo FXML.
+     *
+     * @param fxml archivo de tipo FXML de la escena
+     * @return nodo de tipo Parent
+     * @throws IOException arroja error si no se encuentra el archivo FXML
+     */
+    private static Parent loadFXML(final String fxml) throws IOException {
+        return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"))
+                .load();
+    }
+
+    public static void main(final String... argv) {
+        launch(argv);
+    }
+
+    @Override
+    public final void init() {
+        System.out.println("Inicializando aplicación...");
+        System.out.printf("Test animales:\n%s\n",
+                Sistema.genPalabras(Sistema.leerArchivo("animales.txt")));
+        System.out.printf("Test deportes:\n%s\n",
+                Sistema.genPalabras(Sistema.leerArchivo("deportes.txt")));
+        System.out.printf("Test frutas:\n%s\n",
+                Sistema.genPalabras(Sistema.leerArchivo("frutas.txt")));
+        System.out.printf("Test paises:\n%s\n",
+                Sistema.genPalabras(Sistema.leerArchivo("paises.txt")));
+    }
+
+    @Override
+    public final void stop() {
+        System.out.println("Cerrando aplicación...");
+    }
+
+    @Override
+    public final void start(final Stage primaryStage) throws IOException {
+        scene = new Scene(loadFXML("primary"));
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}

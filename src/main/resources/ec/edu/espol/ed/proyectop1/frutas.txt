@@ -1,0 +1,15 @@
+# FRUTAS
+banano
+lima
+pera
+higo
+melon
+sandia
+fresa
+uva
+mango
+kiwi
+coco
+limon
+mora
+ciruela

@@ -1,0 +1,20 @@
+# ANIMALES
+leon
+atun
+zebra
+toro
+gato
+loro
+pollo
+oso
+buey
+rana
+vaca
+asno
+reno
+pez
+raton
+boa
+topo
+panda
+foca

@@ -1,8 +1,0 @@
-natacion
-futbol
-esgrima
-rodeo
-ciclismo
-beisbol
-voleibol
-soccer
