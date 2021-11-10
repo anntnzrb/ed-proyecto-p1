@@ -1,1 +1,1 @@
-"banano", "lima", "pera", "higo", "melon", "sandia","fresa", "uva", "piña", "mango", "kiwi", "coco", "limon", "mora", "ciruela"
+banano,lima,pera,higo,melon,sandia,fresa,uva,piña,mango,kiwi,coco,limon,mora,ciruela

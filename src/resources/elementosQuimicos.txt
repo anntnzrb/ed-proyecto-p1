@@ -1,1 +1,1 @@
-"radon", "niquel", "bario", "selenio","tulio","oro, "radio", "zinc","lantano", "bario", "calcio", "oxigeno", "nitrogeno", "mercurio"
+radon,niquel,bario,selenio,tulio,oro,radio,zinc,lantano,bario,calcio,oxigeno,nitrogeno,mercurio
