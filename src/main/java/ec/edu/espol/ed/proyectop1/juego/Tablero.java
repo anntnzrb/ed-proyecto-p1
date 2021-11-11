@@ -14,11 +14,20 @@ public class Tablero {
         llenarTablero();
     }
 
-    private void llenarTablero() {
+     private void llenarTablero(){
         for (int i = 0; i < fil; i++) {
             for (int j = 0; j < col; j++) {
-                //
+                tabla[i][j] = new Cuadro(i,j,' ');                
             }
+        }
+    }
+    
+    public void mostrarTablero(){
+        for (int i = 0; i < fil; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(tabla[i][j].getData()+" ");
+            }
+            System.out.println("");
         }
     }
 }
