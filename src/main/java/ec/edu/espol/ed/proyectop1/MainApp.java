@@ -44,14 +44,6 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        System.out.printf("Test animales:\n%s\n",
-                Sistema.genPalabras(Sistema.leerArchivo("animales.txt")));
-        System.out.printf("Test deportes:\n%s\n",
-                Sistema.genPalabras(Sistema.leerArchivo("deportes.txt")));
-        System.out.printf("Test frutas:\n%s\n",
-                Sistema.genPalabras(Sistema.leerArchivo("frutas.txt")));
-        System.out.printf("Test paises:\n%s\n",
-                Sistema.genPalabras(Sistema.leerArchivo("paises.txt")));
     }
 
     @Override
