@@ -1,0 +1,59 @@
+
+.label{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+.text-field{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+.radio-button{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.root{
+    -fx-background-color: #ABA4A8;
+}
+
+#labelConfig{
+    -fx-text-fill: #010440;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 17px;  
+}
+
+.button{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: #F2D479;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );    
+    -fx-text-align: center;
+    -fx-font-size: 20px;
+    
+}
+#botonesPrincipal{
+   -fx-font-size: 25px;
+}
+
+#botonesConfig{
+    -fx-font-size: 20px;
+}
+
+#topRoot{
+    -fx-background-color: #4C565E;
+    -fx-align-content:"TOP_CENTER"    
+}
+
+#subtitulos{
+    -fx-text-fill: #010440;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 21px;  
+}
