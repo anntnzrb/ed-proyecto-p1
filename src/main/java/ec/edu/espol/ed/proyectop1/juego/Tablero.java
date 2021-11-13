@@ -13,6 +13,12 @@ public class Tablero {
         tabla = new Cuadro[fil][col];
         llenarTablero();
     }
+        public Tablero(){
+        tabla = new Cuadro[fil][col];
+        
+        llenarTablero();
+    }
+    
 
      private void llenarTablero(){
         for (int i = 0; i < fil; i++) {
@@ -30,4 +36,30 @@ public class Tablero {
             System.out.println("");
         }
     }
+
+    public int getFil() {
+        return fil;
+    }
+
+    public void setFil(int fil) {
+        this.fil = fil;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public Cuadro[][] getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(Cuadro[][] tabla) {
+        this.tabla = tabla;
+    }
+    
+    
 }
