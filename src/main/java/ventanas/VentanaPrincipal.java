@@ -32,7 +32,7 @@ public class VentanaPrincipal extends Application{
         HBox hbLogo = new HBox(5);
         //int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         //int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        ImageView logo = new ImageView(getClass().getResource("/resources/imagenes/logo.jpg").toExternalForm());
+        ImageView logo = new ImageView(getClass().getResource("logo.jpg").toExternalForm());
         logo.setFitWidth(450);
         logo.setFitHeight(100);
         hbLogo.getChildren().add(logo);
