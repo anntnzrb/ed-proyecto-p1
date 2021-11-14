@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Clase Sistema.
@@ -52,5 +53,29 @@ public class Sistema {
         listPalabras.forEach(p -> palabrasCL.addLast(new Palabra(p)));
 
         return palabrasCL;
+    }
+
+    /**
+     * Retorna un String random de una colección que contiene elementos
+     * procesados de la lectura de un archivo pasada por parámetro.
+     *
+     * @param archivo Archivo a analizar
+     * @return String random de la colección
+     */
+    public static String obtenerPalabra(final String archivo) {
+        final List<String> listPalabras = leerArchivo(archivo);
+
+        return Objects.requireNonNull(listPalabras)
+                      .get(new Random().nextInt(listPalabras.size()));
+    }
+
+    /**
+     * Obtiene un caracter random de una palabra pasada por parámetro.
+     *
+     * @param palabra palabra a analizar
+     * @return caracter random de la palabra pasa por parámetro
+     */
+    public static char obtenerCharPalabra(final String palabra) {
+        return palabra.charAt(new Random().nextInt(palabra.length()));
     }
 }
