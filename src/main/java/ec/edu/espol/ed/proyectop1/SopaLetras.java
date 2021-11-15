@@ -11,16 +11,17 @@ import static javafx.application.Application.launch;
 import ventanas.VentanaPrincipal;
 
 public class SopaLetras extends Application {
-private static Scene scene;
+    private static Scene scene;
 
-  public static void setRoot(final String fxml) throws IOException {
+    public static void setRoot(final String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
+
     public static void main(final String... argv) {
         launch(argv);
     }
-    
-      @Override
+
+    @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
         Tablero2 tb = new Tablero2("animales.txt", 8);
@@ -33,14 +34,13 @@ private static Scene scene;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"))
-                .load();    }
-
-   
+        return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"))
+                .load();
+    }
 
     @Override
     public final void start(final Stage primaryStage) throws IOException {
-         VentanaPrincipal vp = new VentanaPrincipal();
+        VentanaPrincipal vp = new VentanaPrincipal();
         vp.start(primaryStage);
     }
 }
