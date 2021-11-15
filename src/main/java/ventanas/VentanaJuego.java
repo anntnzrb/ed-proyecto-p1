@@ -35,10 +35,10 @@ public class VentanaJuego extends Application{
     private final BorderPane rootJuego;
     private boolean terminado;
     private Cuadro casilla;
-    private final TextField turno = new TextField();
+    //private final TextField turno = new TextField();
     private final Button btnRegresar;
     private final Button btnGuardar;
-    private final Button btnPista;
+    //private final Button btnPista;
     
     public VentanaJuego(Jugador jugador1,String tipoJuego){
         root = new SplitPane();
@@ -50,15 +50,12 @@ public class VentanaJuego extends Application{
         terminado = false;
         btnRegresar = new Button("Regresar");
         btnGuardar = new Button("Guardar Partida");
-        btnPista = new Button();
-        //rootBorder();
+        //btnPista = new Button();     
         empezarJuego();
-        System.out.println("\n\n");
-       
+        System.out.println("\n\n");   
     }
     
-   
-    
+
     private void setTop(){
         ImageView logo = new ImageView(getClass().getResource("logo.jpg").toExternalForm());
         logo.setFitWidth(450);
@@ -124,7 +121,7 @@ public class VentanaJuego extends Application{
         lblJugadores.setId("subtitulos");
         vbLeftRoot.getChildren().addAll(lblJugadores,new Label(jugador1.getNickname()+" "));
         vbLeftRoot.getChildren().addAll(new Label(""),new Label(""),new Label(""),new Label(""),new Label(""),new Label(""));
-        vbLeftRoot.getChildren().addAll(this.btnPista,this.btnGuardar,this.btnRegresar);        
+        vbLeftRoot.getChildren().addAll(this.btnGuardar,this.btnRegresar);        
         
         this.rootJuego.setLeft(vbLeftRoot);
     }

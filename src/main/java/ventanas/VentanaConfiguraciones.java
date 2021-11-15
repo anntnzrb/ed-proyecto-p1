@@ -32,8 +32,6 @@ public class VentanaConfiguraciones extends Application {
     private final Button btnGuardar;
     private final Button btnJugar;
     private final Button btnRegresar;
-    private String modoJuego;
-    private char marca;
     private Jugador jugador1;
 
     public VentanaConfiguraciones() {
