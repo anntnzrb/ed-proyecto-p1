@@ -3,6 +3,7 @@ package ventanas;
 //import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import java.util.ArrayList;
 
+import ec.edu.espol.ed.proyectop1.juego.Tablero;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -13,7 +14,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -21,20 +21,18 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ec.edu.espol.ed.proyectop1.juego.Cuadro;
 import ec.edu.espol.ed.proyectop1.juego.Jugador;
-import ec.edu.espol.ed.proyectop1.juego.Tablero;
 
 
 public class VentanaJuego extends Application{
     private final SplitPane root;
    // private final CircularDoublyLinkedList<Tablero> TablaJuego;
     private final Jugador jugador1;
-    private final String tipoJuego;
-    private final Tablero tableroActual;
+    private final String     tipoJuego;
+    private final Tablero    tableroActual;
     private final BorderPane rootJuego;
     private boolean terminado;
-    private Cuadro casilla;
+    //private Cuadro casilla;
     //private final TextField turno = new TextField();
     private final Button btnRegresar;
     private final Button btnGuardar;
@@ -42,7 +40,8 @@ public class VentanaJuego extends Application{
     
     public VentanaJuego(Jugador jugador1,String tipoJuego){
         root = new SplitPane();
-        tableroActual = new Tablero();
+        // FIXME
+        tableroActual = new Tablero("test.txt", 8);
         //TablaJuego = new CircularDoublyLinkedList<Tablero>(tableroActual);
         this.jugador1 = jugador1;
         this.tipoJuego = tipoJuego;
@@ -100,7 +99,7 @@ public class VentanaJuego extends Application{
     }
     
     private void actualizarTablero(){
-        this.tableroActual.getTabla()[casilla.getX()][casilla.getY()].setData(casilla.getData());
+        //this.tableroActual.getTabla()[casilla.getX()][casilla.getY()].setData(casilla.getData());
         //this.tableroActual.mostrarTablero();
     }
    

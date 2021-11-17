@@ -1,7 +1,7 @@
 package ec.edu.espol.ed.proyectop1;
 
 import ec.edu.espol.ed.proyectop1.juego.Sistema;
-import ec.edu.espol.ed.proyectop1.juego.Tablero2;
+import ec.edu.espol.ed.proyectop1.juego.Tablero;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +45,7 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        Tablero2 tb = new Tablero2("animales.txt", 8);
+        Tablero tb = new Tablero("animales.txt", 8);
         tb.mostrarTablero();
         
         System.out.println(Sistema.palComoCharList("hola"));

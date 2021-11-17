@@ -3,7 +3,6 @@ package ec.edu.espol.ed.proyectop1.juego;
 
 import ec.edu.espol.ed.proyectop1.MainApp;
 import ec.edu.espol.ed.proyectop1.tda.ArrayList;
-import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import ec.edu.espol.ed.proyectop1.tda.List;
 
 import java.io.BufferedReader;
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Clase Sistema.
@@ -27,7 +27,8 @@ public class Sistema {
     public static List<String> leerArchivo(final String archivo) {
         try (final BufferedReader br =
                      new BufferedReader(
-                             new InputStreamReader(Objects.requireNonNull(MainApp.class.getResourceAsStream(archivo))))) {
+                             new InputStreamReader(Objects.requireNonNull(
+                                     MainApp.class.getResourceAsStream(archivo))))) {
             final List<String> xs = new ArrayList<>();
             br.lines()
               .skip(1) // omitir cabezera
@@ -39,20 +40,6 @@ public class Sistema {
         }
 
         return null;
-    }
-
-    /**
-     * Convierte una colección de palabras (tipo String) a una Lista
-     * Circular doblemente enlazada de tipo Palabra.
-     *
-     * @param listPalabras lista de tipo String con palabras
-     * @return lista de tipo Palabra
-     */
-    public static List<Palabra> genPalabras(List<String> listPalabras) {
-        List<Palabra> palabrasCL = new CircularDoublyLinkedList<>();
-        listPalabras.forEach(p -> palabrasCL.addLast(new Palabra(p)));
-
-        return palabrasCL;
     }
 
     /**
@@ -78,13 +65,26 @@ public class Sistema {
     public static char obtenerCharPalabra(final String palabra) {
         return palabra.charAt(new Random().nextInt(palabra.length()));
     }
-    
+
+    /**
+     * Retorna un caracter aleatorio del alfabeto inglés.
+     * <p>
+     * En la tabla ASCII, la letra 'a' es el valor 97 y la 'z' es el 122, por
+     * lo que simplemente se retorna genera un número aleatorio entre ese
+     * rango (inclusivo) y se transforma a char.
+     *
+     * @return caracter del alfabeto inglés
+     */
+    public static char getRandomCharABC() {
+        return (char) ThreadLocalRandom.current().nextInt('a', 'z' + 1);
+    }
+
     public static List<Character> palComoCharList(final String palabra) {
         List<Character> xs = new ArrayList<>();
         for (int i = 0, palLenght = palabra.length(); i < palLenght; ++i) {
             xs.addLast(palabra.charAt(i));
         }
-        
+
         return xs;
     }
 }

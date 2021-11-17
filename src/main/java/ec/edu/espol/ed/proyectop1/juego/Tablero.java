@@ -1,65 +1,64 @@
 package ec.edu.espol.ed.proyectop1.juego;
 
+import ec.edu.espol.ed.proyectop1.tda.ArrayList;
+import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
+
 public class Tablero {
     int fil;
     int col;
-    Cuadro[][] tabla;
 
-    // new Tablero(7, 7)
-    public Tablero(int fil, int col) {
-        this.fil = fil;
-        this.col = col;
+    ArrayList<CircularDoublyLinkedList<Character>> tabla;
 
-        tabla = new Cuadro[fil][col];
-        llenarTablero();
-    }
-        public Tablero(){
-        tabla = new Cuadro[fil][col];
-        
-        llenarTablero();
-    }
-    
+    public Tablero(final String archivo, final int dimension) {
+        this.fil = dimension;
+        this.col = 1;
 
-     private void llenarTablero(){
-        for (int i = 0; i < fil; i++) {
-            for (int j = 0; j < col; j++) {
-                tabla[i][j] = new Cuadro(i,j,' ');                
+        tabla = new ArrayList<>();
+
+        /* iterator sobre el ArrayList */
+        for (int i = 0; i < fil; ++i) {
+            final CircularDoublyLinkedList<Character> cll =
+                    new CircularDoublyLinkedList<>();
+
+            String pal = Sistema.obtenerPalabra(archivo);
+            final int palLenght = pal.length();
+            while (palLenght > dimension) {
+                pal = Sistema.obtenerPalabra(archivo);
             }
+
+            // ['p', 'e', 'r', 'r', 'o']
+            // .shuffle()
+            // ['e', 'p', 'r', 'o', 'r']
+            // pickAny
+
+            boolean randomPals = false;
+            for (int c = 0; c < fil; ++c) {
+                if (c < palLenght) {
+                    cll.addLast(randomPals
+                                ? Sistema.obtenerCharPalabra(pal)
+                                : pal.charAt(c));
+                } else {
+                    cll.addLast(Sistema.getRandomCharABC());
+                }
+            }
+
+            tabla.addLast(cll);
         }
     }
-    
-    public void mostrarTablero(){
-        for (int i = 0; i < fil; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.print(tabla[i][j].getData()+" ");
-            }
-            System.out.println("");
-        }
+
+    public void mostrarTablero() {
+        System.out.println(tabla);
     }
 
     public int getFil() {
         return fil;
     }
 
-    public void setFil(int fil) {
-        this.fil = fil;
-    }
-
     public int getCol() {
         return col;
     }
 
-    public void setCol(int col) {
-        this.col = col;
-    }
-
-    public Cuadro[][] getTabla() {
+    public ArrayList<CircularDoublyLinkedList<Character>> getTabla() {
         return tabla;
     }
-
-    public void setTabla(Cuadro[][] tabla) {
-        this.tabla = tabla;
-    }
-    
-    
 }
