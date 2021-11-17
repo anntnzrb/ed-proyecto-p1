@@ -47,6 +47,8 @@ public class MainApp extends Application {
         System.out.println("Inicializando aplicación...");
         Tablero2 tb = new Tablero2("animales.txt", 8);
         tb.mostrarTablero();
+        
+        System.out.println(Sistema.palComoCharList("hola"));
     }
 
     @Override

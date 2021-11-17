@@ -78,4 +78,13 @@ public class Sistema {
     public static char obtenerCharPalabra(final String palabra) {
         return palabra.charAt(new Random().nextInt(palabra.length()));
     }
+    
+    public static List<Character> palComoCharList(final String palabra) {
+        List<Character> xs = new ArrayList<>();
+        for (int i = 0, palLenght = palabra.length(); i < palLenght; ++i) {
+            xs.addLast(palabra.charAt(i));
+        }
+        
+        return xs;
+    }
 }
