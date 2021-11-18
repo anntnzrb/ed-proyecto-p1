@@ -2,6 +2,7 @@ package ec.edu.espol.ed.proyectop1;
 
 import ec.edu.espol.ed.proyectop1.juego.Sistema;
 import ec.edu.espol.ed.proyectop1.juego.Tablero;
+import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,10 +46,18 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        Tablero tb = new Tablero("animales.txt", 8);
+        final Tablero tb = new Tablero("animales.txt", 8);
         tb.mostrarTablero();
-        
-        System.out.println(Sistema.palComoCharList("hola"));
+
+        CircularDoublyLinkedList<Character> cll = new CircularDoublyLinkedList<>();
+        cll.addLast('h');
+        cll.addLast('o');
+        cll.addLast('l');
+        cll.addLast('a');
+        System.out.println(cll);
+        cll.desplazarNodosDerecha();
+        System.out.println(cll);
+
     }
 
     @Override

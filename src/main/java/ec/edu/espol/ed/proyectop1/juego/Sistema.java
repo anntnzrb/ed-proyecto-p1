@@ -87,4 +87,19 @@ public class Sistema {
 
         return xs;
     }
+
+    public static <T> void shuffleList(final List<T> xs) {
+        final int xsSize = xs.size();
+        for (int i = 0; i < xsSize; i++) {
+            final int change = i + ThreadLocalRandom.current().nextInt(xsSize - i);
+            swap(xs, i, change);
+        }
+    }
+
+    private static <T> void swap(final List<T> xs, final int i,
+                              final int change) {
+        final T helper = xs.get(i);
+        xs.set(i, xs.get(change));
+        xs.set(change, helper);
+    }
 }

@@ -344,23 +344,14 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         return null;
     }
 
-    @Override
-    public boolean keepOnly(int from, int to) {
-        // TODO
+    // cll = ['p', 'e', 'r', 'r', 'o'. 'x', 'y']
+    // cll mod = ['y', 'p', 'e', 'r', 'r', 'o', 'x']
 
-        return false;
-    }
-
-    @Override
-    public void reverse() {
-        // TODO
-    }
-
-    @Override
-    public List<E> insertAt(List<E> xs, int idx) {
-        // TODO
-
-        return null;
+    public void desplazarNodosDerecha() {
+        for (Node<E> n = getFirst(); n != getLast(); n = n.getNext()) {
+            System.out.println(n.getData());
+            n.setNext(n);
+        }
     }
 
     /**
