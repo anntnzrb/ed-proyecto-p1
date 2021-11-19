@@ -45,18 +45,9 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        final Tablero tb = new Tablero("animales.txt", 8);
+        final Tablero tb = new Tablero("animales.txt", 4);
+//        tb.addColumna();
         tb.mostrarTablero();
-
-        CircularDoublyLinkedList<String> cll = new CircularDoublyLinkedList<>();
-        cll.addLast("h");
-        cll.addLast("o");
-        cll.addLast("l");
-        cll.addLast("a");
-        System.out.println(cll);
-        cll.desplazarNodos('i');
-        cll.desplazarNodos('d');
-        System.out.println(cll);
     }
 
     @Override

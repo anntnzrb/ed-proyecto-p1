@@ -4,15 +4,24 @@ import ec.edu.espol.ed.proyectop1.tda.ArrayList;
 import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import ec.edu.espol.ed.proyectop1.tda.List;
 
+import java.util.Locale;
+import java.util.stream.IntStream;
+
 public class Tablero {
     int fil;
     int col;
+
+    /* cantidad de inserciones extras realizadas */
+    int extraFils;
+    int extraCols;
 
     ArrayList<CircularDoublyLinkedList<Character>> tabla;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
         col = 1;
+
+        extraFils = extraCols = 0;
 
         tabla = new ArrayList<>();
 
@@ -21,7 +30,9 @@ public class Tablero {
             final CircularDoublyLinkedList<Character> cll =
                     new CircularDoublyLinkedList<>();
 
-            String pal = Sistema.obtenerPalabra(archivo);
+            /* obtener una palabra random del archivo de palabras */
+            String pal = Sistema.obtenerPalabra(archivo)
+                                .toUpperCase(Locale.ROOT);
             final int palLenght = pal.length();
             while (palLenght > dimension) {
                 pal = Sistema.obtenerPalabra(archivo);
@@ -37,7 +48,7 @@ public class Tablero {
                 if (c < palLenght) {
                     cll.addLast(palComoList.get(c));
                 } else {
-                    cll.addLast(Sistema.getRandomCharABC());
+                    cll.addLast(Character.toUpperCase(Sistema.getRandomCharABC()));
                 }
             }
 
@@ -45,22 +56,64 @@ public class Tablero {
         }
     }
 
-    // cll = ['p', 'e', 'r', 'r', 'o'. 'x', 'y']
-    // cll mod = ['y', 'p', 'e', 'r', 'r', 'o', 'x']
+    public void desplazar(final int idx, final char lado) {
+        tabla.get(idx).desplazarNodos(lado);
+    }
 
+    /**
+     * Agrega una nueva fila (CircularDoublyLinkedList) al final del arreglo
+     * que las contiene.
+     */
+    public void addFila() {
+        /* recordar que una fila es una CLL */
+        final CircularDoublyLinkedList<Character> newFilCLL =
+                genCLL(fil + extraCols);
 
-    public void desplazarDerecha(final int idx) {
-        final var cll = tabla.get(idx);
-        final CircularDoublyLinkedList<Character> cllMod =
+        tabla.addLast(newFilCLL);
+
+        ++extraFils;
+    }
+
+    /**
+     * Agrega una nueva columna (CircularDoublyLinkedList) a la derecha de
+     * cada CLL del arreglo que las contiene.
+     */
+    public void addColumna() {
+        /* recordar que una fila es una CLL */
+        final CircularDoublyLinkedList<Character> newColCLL =
+                genCLL(fil + extraFils);
+
+        /* iterator sobre el ArrayList */
+        IntStream.range(0, fil + extraFils)
+                 .forEachOrdered(i -> tabla.get(i)
+                                           .addLast(newColCLL.get(i)));
+
+        ++extraCols;
+    }
+
+    /**
+     * Genera una {@link CircularDoublyLinkedList} que contiene letras
+     * random acorde a las dimensiones del tablero.
+     *
+     * @return una {@link CircularDoublyLinkedList}
+     */
+    private CircularDoublyLinkedList<Character> genCLL(final int size) {
+        final CircularDoublyLinkedList<Character> newCLL =
                 new CircularDoublyLinkedList<>();
 
-        for (int i = 0; i < cll.size(); i++) {
-            final char ch = cll.get(i); // 'p'
-        }
+        IntStream.range(0, size)
+                 .mapToObj(i -> Character.toUpperCase(Sistema.getRandomCharABC()))
+                 .forEachOrdered(newCLL::addLast);
+
+        return newCLL;
+    }
+
+    private void actualizarTablero() {
+        ++fil;
     }
 
     public void mostrarTablero() {
-        System.out.println(tabla);
+        tabla.forEach(cll -> System.out.printf("%s\n", cll));
     }
 
     public int getFil() {
