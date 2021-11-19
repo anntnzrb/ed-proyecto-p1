@@ -28,7 +28,7 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         last.setNext(n);
     }
 
-    private Node<E> getLast() {
+    public Node<E> getLast() {
         return last;
     }
 
@@ -353,6 +353,7 @@ public class CircularDoublyLinkedList<E> implements List<E> {
             n.setNext(n);
         }
     }
+
 
     /**
      * {@inheritDoc}

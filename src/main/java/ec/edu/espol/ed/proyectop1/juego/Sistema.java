@@ -3,7 +3,9 @@ package ec.edu.espol.ed.proyectop1.juego;
 
 import ec.edu.espol.ed.proyectop1.MainApp;
 import ec.edu.espol.ed.proyectop1.tda.ArrayList;
+import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import ec.edu.espol.ed.proyectop1.tda.List;
+import ec.edu.espol.ed.proyectop1.tda.Node;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -101,5 +103,17 @@ public class Sistema {
         final T helper = xs.get(i);
         xs.set(i, xs.get(change));
         xs.set(change, helper);
+    }
+    
+        
+    public  static CircularDoublyLinkedList<String> moverDerecha(CircularDoublyLinkedList<String> np){
+       Node<String> tmp;
+       CircularDoublyLinkedList<String> resultado = new CircularDoublyLinkedList<>();
+        int i = 1;
+        for (tmp= np.getLast().getNext();i<=np.size(); tmp = tmp.getNext()) {
+                resultado.addLast(tmp.getPrev().getData());
+                i++;
+        }
+        return resultado;
     }
 }

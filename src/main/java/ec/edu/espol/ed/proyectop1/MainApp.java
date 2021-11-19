@@ -49,14 +49,14 @@ public class MainApp extends Application {
         final Tablero tb = new Tablero("animales.txt", 8);
         tb.mostrarTablero();
 
-        CircularDoublyLinkedList<Character> cll = new CircularDoublyLinkedList<>();
-        cll.addLast('h');
-        cll.addLast('o');
-        cll.addLast('l');
-        cll.addLast('a');
+        CircularDoublyLinkedList<String> cll = new CircularDoublyLinkedList<>();
+        cll.addLast("h");
+        cll.addLast("o");
+        cll.addLast("l");
+        cll.addLast("a");
         System.out.println(cll);
-        cll.desplazarNodosDerecha();
-        System.out.println(cll);
+        System.out.println( Sistema.moverDerecha(cll));
+        
 
     }
 
