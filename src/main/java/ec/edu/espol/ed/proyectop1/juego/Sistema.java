@@ -3,9 +3,7 @@ package ec.edu.espol.ed.proyectop1.juego;
 
 import ec.edu.espol.ed.proyectop1.MainApp;
 import ec.edu.espol.ed.proyectop1.tda.ArrayList;
-import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import ec.edu.espol.ed.proyectop1.tda.List;
-import ec.edu.espol.ed.proyectop1.tda.Node;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -82,7 +80,7 @@ public class Sistema {
     }
 
     public static List<Character> palComoCharList(final String palabra) {
-        List<Character> xs = new ArrayList<>();
+        final List<Character> xs = new ArrayList<>();
         for (int i = 0, palLenght = palabra.length(); i < palLenght; ++i) {
             xs.addLast(palabra.charAt(i));
         }
@@ -93,38 +91,16 @@ public class Sistema {
     public static <T> void shuffleList(final List<T> xs) {
         final int xsSize = xs.size();
         for (int i = 0; i < xsSize; i++) {
-            final int change = i + ThreadLocalRandom.current().nextInt(xsSize - i);
+            final int change =
+                    i + ThreadLocalRandom.current().nextInt(xsSize - i);
             swap(xs, i, change);
         }
     }
 
     private static <T> void swap(final List<T> xs, final int i,
-                              final int change) {
+                                 final int change) {
         final T helper = xs.get(i);
         xs.set(i, xs.get(change));
         xs.set(change, helper);
-    }
-    
-        
-    public  static CircularDoublyLinkedList<String> moverDerecha(CircularDoublyLinkedList<String> np){
-       Node<String> tmp;
-       CircularDoublyLinkedList<String> resultado = new CircularDoublyLinkedList<>();
-        int i = 1;
-        for (tmp= np.getLast().getNext();i<=np.size(); tmp = tmp.getNext()) {
-                resultado.addLast(tmp.getPrev().getData());
-                i++;
-        }
-        return resultado;
-    }
-    
-    public  static CircularDoublyLinkedList<String> moverIzquierda(CircularDoublyLinkedList<String> np){
-       Node<String> tmp;
-       CircularDoublyLinkedList<String> resultado = new CircularDoublyLinkedList<>();
-        int i = 1;
-        for (tmp= np.getLast().getNext();i<=np.size(); tmp = tmp.getNext()) {
-                resultado.addLast(tmp.getNext().getData());
-                i++;
-        }
-        return resultado;
     }
 }

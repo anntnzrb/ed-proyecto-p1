@@ -1,6 +1,5 @@
 package ec.edu.espol.ed.proyectop1;
 
-import ec.edu.espol.ed.proyectop1.juego.Sistema;
 import ec.edu.espol.ed.proyectop1.juego.Tablero;
 import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
 import javafx.application.Application;
@@ -55,10 +54,9 @@ public class MainApp extends Application {
         cll.addLast("l");
         cll.addLast("a");
         System.out.println(cll);
-        System.out.println( Sistema.moverDerecha(cll));
-        System.out.println( Sistema.moverIzquierda(cll));
-        
-
+        cll.desplazarNodos('i');
+        cll.desplazarNodos('d');
+        System.out.println(cll);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         last.setNext(n);
     }
 
-    public Node<E> getLast() {
+    private Node<E> getLast() {
         return last;
     }
 
@@ -63,7 +63,9 @@ public class CircularDoublyLinkedList<E> implements List<E> {
      */
     @Override
     public void clear() {
-        if (isEmpty()) { return; }
+        if (isEmpty()) {
+            return;
+        }
 
         // FIXME :: NPE
         for (Node<E> n = getFirst(); n != getLast(); n = n.getNext()) {
@@ -338,22 +340,29 @@ public class CircularDoublyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public E set(int idx, E e) {
-        // TODO
-
+    public E set(final int idx, final E e) {
         return null;
     }
 
-    // cll = ['p', 'e', 'r', 'r', 'o'. 'x', 'y']
-    // cll mod = ['y', 'p', 'e', 'r', 'r', 'o', 'x']
+    public void desplazarNodos(final char lado) {
+        Node<E> tmpNode;
+        final List<E> tmpCLL = new CircularDoublyLinkedList<>();
 
-    public void desplazarNodosDerecha() {
-        for (Node<E> n = getFirst(); n != getLast(); n = n.getNext()) {
-            System.out.println(n.getData());
-            n.setNext(n);
+        int i = 0;
+        for (tmpNode = getLast().getNext();
+             i < size;
+             tmpNode = tmpNode.getNext(), ++i) {
+            tmpCLL.addLast(lado == 'i'
+                           ? tmpNode.getNext().getData()
+                           : tmpNode.getPrev().getData());
         }
-    }
 
+        for (int j = 0, tmpCLLLen = tmpCLL.size(); j < tmpCLLLen; j++) {
+            add(j, tmpCLL.get(j));
+            removeLast();
+        }
+        removeLast();
+    }
 
     /**
      * {@inheritDoc}
@@ -392,7 +401,7 @@ public class CircularDoublyLinkedList<E> implements List<E> {
 
         return new Iterator<E>() {
             private Node<E> ptr = getFirst();
-            private boolean isStarted = false;
+            private boolean isStarted;
 
             /**
              * {@inheritDoc}
