@@ -116,4 +116,15 @@ public class Sistema {
         }
         return resultado;
     }
+    
+    public  static CircularDoublyLinkedList<String> moverIzquierda(CircularDoublyLinkedList<String> np){
+       Node<String> tmp;
+       CircularDoublyLinkedList<String> resultado = new CircularDoublyLinkedList<>();
+        int i = 1;
+        for (tmp= np.getLast().getNext();i<=np.size(); tmp = tmp.getNext()) {
+                resultado.addLast(tmp.getNext().getData());
+                i++;
+        }
+        return resultado;
+    }
 }

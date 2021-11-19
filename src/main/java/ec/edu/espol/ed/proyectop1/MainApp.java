@@ -56,6 +56,7 @@ public class MainApp extends Application {
         cll.addLast("a");
         System.out.println(cll);
         System.out.println( Sistema.moverDerecha(cll));
+        System.out.println( Sistema.moverIzquierda(cll));
         
 
     }
