@@ -9,14 +9,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Clase Sistema.
+ * Enum Sistema.
  * Provee métodos (estáticos exclusivamente) para el funcionamiento del juego.
  */
-public class Sistema {
+public enum Sistema {
+    ;
+
     /**
      * Lee un archivo pasado por parámetro y agrega cada línea como un
      * elemento de la colección.
@@ -24,7 +25,7 @@ public class Sistema {
      * @param archivo archivo a analizar
      * @return lista de tipo String con cada línea del archivo como un elemento
      */
-    public static List<String> leerArchivo(final String archivo) {
+    private static List<String> leerArchivo(final String archivo) {
         try (final BufferedReader br =
                      new BufferedReader(
                              new InputStreamReader(Objects.requireNonNull(
@@ -49,11 +50,12 @@ public class Sistema {
      * @param archivo Archivo a analizar
      * @return String random de la colección
      */
-    public static String obtenerPalabra(final String archivo) {
+    static String obtenerPalabra(final String archivo) {
         final List<String> listPalabras = leerArchivo(archivo);
 
         return Objects.requireNonNull(listPalabras)
-                      .get(new Random().nextInt(listPalabras.size()));
+                      .get(ThreadLocalRandom.current()
+                                            .nextInt(listPalabras.size()));
     }
 
     /**
@@ -63,7 +65,8 @@ public class Sistema {
      * @return caracter random de la palabra pasa por parámetro
      */
     public static char obtenerCharPalabra(final String palabra) {
-        return palabra.charAt(new Random().nextInt(palabra.length()));
+        return palabra.charAt(ThreadLocalRandom.current()
+                                               .nextInt(palabra.length()));
     }
 
     /**
@@ -75,20 +78,35 @@ public class Sistema {
      *
      * @return caracter del alfabeto inglés
      */
-    public static char getRandomCharABC() {
+    static char getRandomCharABC() {
         return (char) ThreadLocalRandom.current().nextInt('a', 'z' + 1);
     }
 
-    public static List<Character> palComoCharList(final String palabra) {
+    /**
+     * Retorna una colección de caracteres con las letras de una palabra.
+     *
+     * @param palabra palabra a ser transformada a colección de caracteres
+     * @return colección de caracteres
+     */
+    static List<Character> palComoCharList(final String palabra) {
         final List<Character> xs = new ArrayList<>();
-        for (int i = 0, palLenght = palabra.length(); i < palLenght; ++i) {
-            xs.addLast(palabra.charAt(i));
+        for (final char ch : palabra.toCharArray()) {
+            xs.addLast(ch);
         }
 
         return xs;
     }
 
-    public static <T> void shuffleList(final List<T> xs) {
+    /**
+     * Mezcla aleatoriamente los elementos de la colección pasada por parámetro.
+     * <p>
+     * Recursos:
+     * - https://stackoverflow.com/a/16014748
+     *
+     * @param xs  colección la cual sus elementso serán mezclados aleatoriamente
+     * @param <T> tipo de la colección
+     */
+    static <T> void shuffleList(final List<T> xs) {
         final int xsSize = xs.size();
         for (int i = 0; i < xsSize; i++) {
             final int change =
@@ -97,10 +115,18 @@ public class Sistema {
         }
     }
 
-    private static <T> void swap(final List<T> xs, final int i,
-                                 final int change) {
+    /**
+     * Función helper para cambiar 2 índices pasados por parámetro de una
+     * colección.
+     *
+     * @param xs  colección a ser procesada
+     * @param i   índice 1
+     * @param j   índice 2
+     * @param <T> tipo de la colección
+     */
+    private static <T> void swap(final List<T> xs, final int i, final int j) {
         final T helper = xs.get(i);
-        xs.set(i, xs.get(change));
-        xs.set(change, helper);
+        xs.set(i, xs.get(j));
+        xs.set(j, helper);
     }
 }
