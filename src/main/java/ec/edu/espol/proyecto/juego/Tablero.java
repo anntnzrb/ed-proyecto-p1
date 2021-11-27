@@ -3,7 +3,9 @@ package ec.edu.espol.proyecto.juego;
 import ec.edu.espol.proyecto.tda.ArrayList;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
+import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.util.Locale;
 import java.util.stream.IntStream;
 
@@ -15,7 +17,7 @@ public class Tablero {
     int extraFils;
     int extraCols;
 
-    ArrayList<CircularDoublyLinkedList<Character>> tabla;
+    ArrayList<CircularDoublyLinkedList<Button>> tabla;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
@@ -27,7 +29,7 @@ public class Tablero {
 
         /* iterator sobre el ArrayList */
         for (int i = 0; i < fil; ++i) {
-            final CircularDoublyLinkedList<Character> cll =
+            final CircularDoublyLinkedList<Button> cll =
                     new CircularDoublyLinkedList<>();
 
             /* obtener una palabra random del archivo de palabras */
@@ -47,9 +49,9 @@ public class Tablero {
 
             for (int c = 0; c < fil; ++c) {
                 if (c < palLenght) {
-                    cll.addLast(palComoList.get(c));
+                    cll.addLast(new Button(Character.toString(palComoList.get(c))));
                 } else {
-                    cll.addLast(Character.toUpperCase(Sistema.getRandomCharABC()));
+                    cll.addLast(new Button(Character.toString(Character.toUpperCase(Sistema.getRandomCharABC()))));
                 }
             }
 
@@ -67,7 +69,7 @@ public class Tablero {
      */
     public void addFila() {
         /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Character> newFilCLL =
+        final CircularDoublyLinkedList<Button> newFilCLL =
                 genCLL(fil + extraCols);
 
         tabla.addLast(newFilCLL);
@@ -81,7 +83,7 @@ public class Tablero {
      */
     public void addColumna() {
         /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Character> newColCLL =
+        final CircularDoublyLinkedList<Button> newColCLL =
                 genCLL(fil + extraFils);
 
         /* iterator sobre el ArrayList */
@@ -93,24 +95,20 @@ public class Tablero {
     }
 
     /**
-     * Genera una {@link CircularDoublyLinkedList} que contiene letras
+     * Genera una {@link CircularDoublyLinkedList} que contiene letras (botones)
      * random acorde a las dimensiones del tablero.
      *
      * @return una {@link CircularDoublyLinkedList}
      */
-    private CircularDoublyLinkedList<Character> genCLL(final int size) {
-        final CircularDoublyLinkedList<Character> newCLL =
+    private CircularDoublyLinkedList<Button> genCLL(final int size) {
+        final CircularDoublyLinkedList<Button> newCLL =
                 new CircularDoublyLinkedList<>();
 
         IntStream.range(0, size)
-                 .mapToObj(i -> Character.toUpperCase(Sistema.getRandomCharABC()))
+                 .mapToObj(i -> new Button(Character.toString(Character.toUpperCase(Sistema.getRandomCharABC()))))
                  .forEachOrdered(newCLL::addLast);
 
         return newCLL;
-    }
-
-    private void actualizarTablero() {
-        ++fil;
     }
 
     public void mostrarTablero() {
@@ -125,7 +123,7 @@ public class Tablero {
         return col;
     }
 
-    public ArrayList<CircularDoublyLinkedList<Character>> getTabla() {
+    public ArrayList<CircularDoublyLinkedList<Button>> getTabla() {
         return tabla;
     }
 }
