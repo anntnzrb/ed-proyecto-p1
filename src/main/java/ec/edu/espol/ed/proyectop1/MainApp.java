@@ -45,8 +45,10 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        final Tablero tb = new Tablero("animales.txt", 4);
-//        tb.addColumna();
+        final Tablero tb = new Tablero("animales.txt", 4);      
+        tb.addColumna();
+        tb.addColumna();
+      
         tb.mostrarTablero();
     }
 

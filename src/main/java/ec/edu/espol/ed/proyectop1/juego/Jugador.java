@@ -18,6 +18,10 @@ public class Jugador {
         this.puntaje = puntaje;
     }
 
+    public Jugador(String nickname) {
+        this.nickname = nickname;
+    }
+
     public String getNickname() {
         return nickname;
     }

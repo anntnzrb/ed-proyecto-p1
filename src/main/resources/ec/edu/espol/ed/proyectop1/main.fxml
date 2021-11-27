@@ -38,6 +38,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -65,26 +66,26 @@
                   <Image url="@fondo.jpg" />
                </image>
             </ImageView>
-            <Text layoutX="176.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona el tipo de sopa">
+            <Text layoutX="176.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona el tipo de sopa">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="77.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensión del tablero:">
+            <Text layoutX="61.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensión del tablero:">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="dimTableroChoiceBox" layoutX="369.0" layoutY="173.0" prefHeight="32.0" prefWidth="134.0" />
-            <Button fx:id="btnJugar" layoutX="272.0" layoutY="290.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Jugar">
+            <ChoiceBox fx:id="dimTableroChoiceBox" layoutX="343.0" layoutY="212.0" prefHeight="32.0" prefWidth="134.0" />
+            <Button fx:id="btnJugar" layoutX="264.0" layoutY="321.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Jugar">
                <font>
                   <Font name="System Bold Italic" size="28.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <ChoiceBox layoutX="369.0" layoutY="224.0" prefHeight="33.0" prefWidth="134.0" />
-            <Text layoutX="270.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema:">
+            <ChoiceBox fx:id="temaChoiceBox" layoutX="343.0" layoutY="257.0" prefHeight="33.0" prefWidth="134.0" />
+            <Text layoutX="255.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema:">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
@@ -100,14 +101,12 @@
                   <Cursor fx:constant="CROSSHAIR" />
                </cursor>
             </Text>
-            <Button fx:id="btnRegresar" layoutX="22.0" layoutY="361.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Regresar">
+            <Text layoutX="86.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del jugador:">
                <font>
-                  <Font name="System Bold Italic" size="16.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
+            </Text>
+            <TextField fx:id="labelNombre" layoutX="343.0" layoutY="165.0" />
          </children>
     </AnchorPane>
   </children>

@@ -17,20 +17,19 @@ public class MainController implements Initializable {
      * arreglo con las posibles dimensiones del tablero
      */
 
-    private final String[] dimsTablero = {
-        "6x6", "7x7", "8x8", "9x9", "10x10"
-    };
+    private final String[] dimsTablero = { "6x6", "7x7", "8x8", "9x9", "10x10"};
+    
+    private final String[] temas = {"animales","deportes", "frutas", "paises"};
 
     @FXML
     private ChoiceBox<String> dimTableroChoiceBox;
+    
+     @FXML
+    private ChoiceBox<String> temaChoiceBox;
 
     @FXML
     private Button btnJugar;
 
-    @FXML
-    private void onSalirBtnClick() {
-        Platform.exit();
-    }
 
     @FXML
     private void onJugarBtnClick() {
@@ -43,6 +42,14 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
+    
+    @FXML
+    private void onSalirBtnClick() {
+        Platform.exit();
+    }
+    
+
 
     /**
      * Retorna la dimeensión del tablero, en realidad solo es el primer número
