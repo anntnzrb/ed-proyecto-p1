@@ -38,7 +38,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -48,9 +47,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.ed.proyectop1.controller.MainController">
+<VBox prefHeight="533.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.ed.proyectop1.controller.MainController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar prefHeight="24.0" prefWidth="734.0" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Archivo">
           <items>
@@ -61,38 +60,32 @@
     </MenuBar>
     <AnchorPane prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <ImageView fitHeight="426.0" fitWidth="634.0" layoutX="3.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="572.0" fitWidth="772.0" layoutX="3.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@fondo.jpg" />
                </image>
             </ImageView>
-            <Text layoutX="176.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona el tipo de sopa">
+            <Text layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elimina o Inserta filas" wrappingWidth="209.41015625">
                <font>
-                  <Font name="System Bold Italic" size="24.0" />
+                  <Font name="System Bold Italic" size="19.0" />
                </font>
             </Text>
-            <Text layoutX="61.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensión del tablero:">
+            <ChoiceBox fx:id="numFilaChoiceBox" layoutX="451.0" layoutY="83.0" prefHeight="35.0" prefWidth="65.0" />
+            <Button fx:id="btnEliminar" layoutX="18.0" layoutY="82.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Eliminar">
                <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Text>
-            <ChoiceBox fx:id="dimTableroChoiceBox" layoutX="343.0" layoutY="212.0" prefHeight="32.0" prefWidth="134.0" />
-            <Button fx:id="btnJugar" layoutX="264.0" layoutY="321.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Jugar">
-               <font>
-                  <Font name="System Bold Italic" size="28.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <ChoiceBox fx:id="temaChoiceBox" layoutX="343.0" layoutY="257.0" prefHeight="33.0" prefWidth="134.0" />
-            <Text layoutX="255.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema:">
+            <Text layoutX="627.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vidas">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Text>
-            <Text fill="#e30b0b" layoutX="22.0" layoutY="69.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" text="SOPA DE LETRAS" textAlignment="CENTER">
+            <Text fill="#e30b0b" layoutX="86.0" layoutY="33.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" text="SOPA DE LETRAS" textAlignment="CENTER" wrappingWidth="607.1689453125">
                <font>
-                  <Font name="Goudy Stout" size="39.0" />
+                  <Font name="Goudy Stout" size="32.0" />
                </font>
                <effect>
                   <ColorAdjust brightness="0.05" contrast="0.87" hue="-0.12" saturation="0.09" />
@@ -101,12 +94,61 @@
                   <Cursor fx:constant="CROSSHAIR" />
                </cursor>
             </Text>
-            <Text layoutX="86.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del jugador:">
+            <Button fx:id="btnInsertar" layoutX="119.0" layoutY="82.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Insertar">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="btnDespDer" layoutX="518.0" layoutY="82.0" mnemonicParsing="false" onAction="#onJugarBtnClick" text="Desplazar -&gt; ">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="btnDespIzq" layoutX="647.0" layoutY="82.0" mnemonicParsing="false" onAction="#onJugarBtnClick" prefHeight="9.0" prefWidth="120.0" text="&lt;-Desplazar ">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="btnPuntaje" layoutX="119.0" layoutY="466.0" mnemonicParsing="false" onAction="#onJugarBtnClick" prefHeight="35.0" prefWidth="65.0">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Text layoutX="13.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntaje:">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Text>
-            <TextField fx:id="labelNombre" layoutX="343.0" layoutY="165.0" />
+            <Button fx:id="btnVidas" layoutX="696.0" layoutY="467.0" mnemonicParsing="false" onAction="#onJugarBtnClick" prefHeight="35.0" prefWidth="65.0">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Text layoutX="383.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona la operación que deseas realizar" wrappingWidth="393.41015625">
+               <font>
+                  <Font name="System Bold Italic" size="19.0" />
+               </font>
+            </Text>
+            <Text layoutX="403.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fila" wrappingWidth="41.41015625">
+               <font>
+                  <Font name="System Bold Italic" size="19.0" />
+               </font>
+            </Text>
          </children>
     </AnchorPane>
   </children>

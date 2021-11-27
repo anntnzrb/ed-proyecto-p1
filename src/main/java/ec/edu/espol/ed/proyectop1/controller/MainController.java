@@ -1,6 +1,7 @@
 package ec.edu.espol.ed.proyectop1.controller;
 
 import ec.edu.espol.ed.proyectop1.MainApp;
+import ec.edu.espol.ed.proyectop1.tda.ArrayList;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -23,12 +24,32 @@ public class MainController implements Initializable {
     @FXML
     private ChoiceBox<String> dimTableroChoiceBox;
     
-     @FXML
+    @FXML
     private ChoiceBox<String> temaChoiceBox;
+    
+    @FXML
+    private ChoiceBox<String> numFilaChoiceBox;
 
     @FXML
     private Button btnJugar;
 
+    @FXML
+    private Button btnEliminar;
+     
+    @FXML
+    private Button btnInsertar;
+      
+    @FXML
+    private Button btnDespDer;
+       
+    @FXML
+    private Button btnDespIzq;
+        
+    @FXML
+    private Button btnPuntaje;
+         
+    @FXML
+    private Button btnVidas;
 
     @FXML
     private void onJugarBtnClick() {
@@ -58,6 +79,8 @@ public class MainController implements Initializable {
     public int getDimTablero() {
         return Integer.parseInt(dimTableroChoiceBox.getValue().split("x")[0]);
     }
+    
+
 
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
