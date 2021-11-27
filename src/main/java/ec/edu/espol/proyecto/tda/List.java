@@ -1,4 +1,4 @@
-package ec.edu.espol.ed.proyectop1.tda;
+package ec.edu.espol.proyecto.tda;
 
 public interface List<E> extends Iterable<E> {
     /**

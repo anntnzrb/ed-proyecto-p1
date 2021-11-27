@@ -1,8 +1,8 @@
-package ec.edu.espol.ed.proyectop1.juego;
+package ec.edu.espol.proyecto.juego;
 
-import ec.edu.espol.ed.proyectop1.tda.ArrayList;
-import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
-import ec.edu.espol.ed.proyectop1.tda.List;
+import ec.edu.espol.proyecto.tda.ArrayList;
+import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
+import ec.edu.espol.proyecto.tda.List;
 
 import java.util.Locale;
 import java.util.stream.IntStream;
@@ -33,9 +33,10 @@ public class Tablero {
             /* obtener una palabra random del archivo de palabras */
             String pal = Sistema.obtenerPalabra(archivo)
                                 .toUpperCase(Locale.ROOT);
-            final int palLenght = pal.length();
+            int palLenght = pal.length();
             while (palLenght > dimension) {
                 pal = Sistema.obtenerPalabra(archivo);
+                palLenght = pal.length();
             }
 
             /* transformar la palabra a una colección de caracteres para

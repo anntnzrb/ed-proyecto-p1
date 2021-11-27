@@ -1,14 +1,13 @@
-package ec.edu.espol.ed.proyectop1.controller;
+package ec.edu.espol.proyecto.controller;
 
-import ec.edu.espol.ed.proyectop1.MainApp;
-import ec.edu.espol.ed.proyectop1.tda.ArrayList;
-import java.io.IOException;
+import ec.edu.espol.proyecto.MainApp;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

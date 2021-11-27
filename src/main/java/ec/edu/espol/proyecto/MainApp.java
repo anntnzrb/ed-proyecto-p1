@@ -1,7 +1,6 @@
-package ec.edu.espol.ed.proyectop1;
+package ec.edu.espol.proyecto;
 
-import ec.edu.espol.ed.proyectop1.juego.Tablero;
-import ec.edu.espol.ed.proyectop1.tda.CircularDoublyLinkedList;
+import ec.edu.espol.proyecto.juego.Tablero;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +44,7 @@ public class MainApp extends Application {
     @Override
     public final void init() {
         System.out.println("Inicializando aplicación...");
-        final Tablero tb = new Tablero("animales.txt", 4);      
+        final Tablero tb = new Tablero("animales.txt", 4);
         tb.addColumna();
         tb.addColumna();
       

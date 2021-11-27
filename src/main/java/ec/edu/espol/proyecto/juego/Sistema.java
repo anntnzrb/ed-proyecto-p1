@@ -1,9 +1,9 @@
-package ec.edu.espol.ed.proyectop1.juego;
+package ec.edu.espol.proyecto.juego;
 
 
-import ec.edu.espol.ed.proyectop1.MainApp;
-import ec.edu.espol.ed.proyectop1.tda.ArrayList;
-import ec.edu.espol.ed.proyectop1.tda.List;
+import ec.edu.espol.proyecto.MainApp;
+import ec.edu.espol.proyecto.tda.ArrayList;
+import ec.edu.espol.proyecto.tda.List;
 
 import java.io.BufferedReader;
 import java.io.IOException;
