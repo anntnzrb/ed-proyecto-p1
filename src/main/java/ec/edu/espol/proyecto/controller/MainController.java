@@ -1,8 +1,10 @@
 package ec.edu.espol.proyecto.controller;
 
+import ec.edu.espol.proyecto.MainApp;
 import ec.edu.espol.proyecto.juego.Tablero;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,12 +26,12 @@ public class MainController implements Initializable {
 
     @FXML
     private ChoiceBox<String> dimTableroChoiceBox;
+    
+    @FXML
+    private GridPane tableroGP;
 
     @FXML
     private ChoiceBox<String> temaChoiceBox;
-
-    @FXML
-    private GridPane tableroGP;
 
     @FXML
     private ChoiceBox<String> numFilaChoiceBox;
@@ -37,49 +39,18 @@ public class MainController implements Initializable {
     @FXML
     private Button btnJugar;
 
-    @FXML
-    private Button btnEliminar;
-
-    @FXML
-    private Button btnInsertar;
-
-    @FXML
-    private Button btnDespDer;
-
-    @FXML
-    private Button btnDespIzq;
-
-    @FXML
-    private Button btnPuntaje;
-
-    @FXML
-    private Button btnVidas;
-
+ 
     @FXML
     private void onJugarBtnClick() {
         final int dim = getDimTablero();
         System.out.printf(
-                "El jugador ha elegido un tablero de dimensiones: %dx%d\n",
-                dim,
-                dim);
-
-        // init tablero
-        final Tablero tbl = new Tablero(temaChoiceBox.getValue() + ".txt",
-                                        getDimTablero());
-
-        final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
-        for (int i = 0; i < listCLL.size(); i++) {
-            for (int j = 0; j < listCLL.get(i).size(); j++) {
-                tableroGP.add(listCLL.get(i).get(j), i, j);
-            }
+                "El jugador ha elegido un tablero de dimensiones: %dx%d\n",dim, dim);
+        //armarTablero();
+        try {
+            MainApp.setRoot("second");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-
-
-        //try {
-        //    MainApp.setRoot("test");
-        //} catch (IOException ex) {
-        //    ex.printStackTrace();
-        //}
     }
 
 
@@ -87,7 +58,17 @@ public class MainController implements Initializable {
     private void onSalirBtnClick() {
         Platform.exit();
     }
+    
+    void armarTablero(){
+       final Tablero tbl = new Tablero(temaChoiceBox.getValue() + ".txt",getDimTablero());
 
+        final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
+        for (int i = 0; i < listCLL.size(); i++) {
+            for (int j = 0; j < listCLL.get(i).size(); j++) {
+                tableroGP.add(listCLL.get(i).get(j), i, j);
+            }
+        }
+}
 
     /**
      * Retorna la dimeensión del tablero, en realidad solo es el primer número
