@@ -66,6 +66,9 @@ public class TableroController implements Initializable {
                 tableroGP.add(listCLL.get(i).get(j), i, j);
             }
         }
+
+        /* debug */
+        tbl.mostrarTablero();
     }
 
     //@FXML
@@ -87,6 +90,9 @@ public class TableroController implements Initializable {
                 tbl.addColumna();
             }
 
+            /* debug */
+            tbl.mostrarTablero();
+
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
         } else {
@@ -104,6 +110,9 @@ public class TableroController implements Initializable {
             } else if (insercionesCB.getValue().equals("columna")) {
                 tbl.removeColumna();
             }
+
+            /* debug */
+            tbl.mostrarTablero();
 
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
