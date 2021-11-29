@@ -23,15 +23,16 @@ public class MainController implements Initializable {
     private final String[] dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
 
     private final String[] temas = {"animales", "deportes", "frutas", "paises"};
+ 
 
     @FXML
     private ChoiceBox<String> dimTableroChoiceBox;
     
-    @FXML
-    private GridPane tableroGP;
+  @FXML
+   private GridPane tableroGP;
 
     @FXML
-    private ChoiceBox<String> temaChoiceBox;
+    protected ChoiceBox<String> temaChoiceBox;
 
     @FXML
     private ChoiceBox<String> numFilaChoiceBox;
@@ -43,9 +44,7 @@ public class MainController implements Initializable {
     @FXML
     private void onJugarBtnClick() {
         final int dim = getDimTablero();
-        System.out.printf(
-                "El jugador ha elegido un tablero de dimensiones: %dx%d\n",dim, dim);
-        //armarTablero();
+        System.out.printf("El jugador ha elegido un tablero de dimensiones: %dx%d\n",dim, dim);
         try {
             MainApp.setRoot("second");
         } catch (IOException ex) {
@@ -53,22 +52,10 @@ public class MainController implements Initializable {
         }
     }
 
-
     @FXML
     private void onSalirBtnClick() {
         Platform.exit();
     }
-    
-    void armarTablero(){
-       final Tablero tbl = new Tablero(temaChoiceBox.getValue() + ".txt",getDimTablero());
-
-        final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
-        for (int i = 0; i < listCLL.size(); i++) {
-            for (int j = 0; j < listCLL.get(i).size(); j++) {
-                tableroGP.add(listCLL.get(i).get(j), i, j);
-            }
-        }
-}
 
     /**
      * Retorna la dimeensión del tablero, en realidad solo es el primer número
