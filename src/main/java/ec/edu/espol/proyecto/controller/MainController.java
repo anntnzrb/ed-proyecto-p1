@@ -52,10 +52,12 @@ public class MainController implements Initializable {
         }
     }
 
+
     @FXML
     private void onSalirBtnClick() {
         Platform.exit();
     }
+
 
     /**
      * Retorna la dimeensión del tablero, en realidad solo es el primer número
