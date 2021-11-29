@@ -1,6 +1,5 @@
 package ec.edu.espol.proyecto;
 
-import ec.edu.espol.proyecto.juego.Tablero;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

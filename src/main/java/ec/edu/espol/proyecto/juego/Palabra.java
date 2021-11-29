@@ -6,7 +6,6 @@
 package ec.edu.espol.proyecto.juego;
 
 /**
- *
  * @author Personal
  */
 public class Palabra {
@@ -31,6 +30,6 @@ public class Palabra {
     public String toString() {
         return "Palabra{" + "palabra=" + palabra + '}';
     }
-    
-    
+
+
 }

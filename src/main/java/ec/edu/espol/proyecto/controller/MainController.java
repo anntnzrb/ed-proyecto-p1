@@ -1,10 +1,6 @@
 package ec.edu.espol.proyecto.controller;
 
 import ec.edu.espol.proyecto.MainApp;
-import ec.edu.espol.proyecto.juego.Tablero;
-import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
-import ec.edu.espol.proyecto.tda.List;
-import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,28 +20,26 @@ public class MainController implements Initializable {
     private final String[] dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
 
     private final String[] temas = {"animales", "deportes", "frutas", "paises"};
- 
-
-    @FXML
-    private ChoiceBox<String> dimTableroChoiceBox;
-    
-  @FXML
-   private GridPane tableroGP;
-
     @FXML
     protected ChoiceBox<String> temaChoiceBox;
-
+    @FXML
+    private ChoiceBox<String> dimTableroChoiceBox;
+    @FXML
+    private GridPane tableroGP;
     @FXML
     private ChoiceBox<String> numFilaChoiceBox;
 
     @FXML
     private Button btnJugar;
 
- 
+
     @FXML
     private void onJugarBtnClick() {
         final int dim = getDimTablero();
-        System.out.printf("El jugador ha elegido un tablero de dimensiones: %dx%d\n",dim, dim);
+        System.out.printf(
+                "El jugador ha elegido un tablero de dimensiones: %dx%d\n",
+                dim,
+                dim);
         try {
             MainApp.setRoot("second");
         } catch (IOException ex) {

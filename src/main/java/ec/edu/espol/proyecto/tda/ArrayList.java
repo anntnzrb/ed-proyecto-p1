@@ -12,11 +12,11 @@ public class ArrayList<E> implements List<E> {
     /**
      * Buffer de la colección en donde se almacenan los elementos del ArrayList.
      */
-    private E[] elems;
+    private              E[] elems;
     /**
      * Cantidad de elementos de la colección.
      */
-    private int capacity;
+    private              int capacity;
 
     /**
      * Cantidad de elementos presentes en la colección (no su capacidad).
@@ -61,7 +61,9 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public final void clear() {
-        if (isEmpty()) { return; }
+        if (isEmpty()) {
+            return;
+        }
 
         for (int i = 0; i < size; ++i) {
             elems[i] = null;
@@ -225,7 +227,9 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public final E removeFirst() {
-        if (isEmpty()) { return null; }
+        if (isEmpty()) {
+            return null;
+        }
 
         final E oldVal = elems[0];
 
@@ -246,7 +250,9 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public final E removeLast() {
-        if (isEmpty()) { return null; }
+        if (isEmpty()) {
+            return null;
+        }
 
         final E oldVal = elems[--size];
         elems[size] = null;
@@ -262,7 +268,9 @@ public class ArrayList<E> implements List<E> {
     @Override
     public final E remove(final int idx) {
         checkRange(idx);
-        if (isEmpty()) { return null; }
+        if (isEmpty()) {
+            return null;
+        }
 
         final E oldVal = elems[idx];
 
@@ -314,11 +322,15 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public final boolean equals(final Object o) {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final ArrayList<?> arr = (ArrayList<?>) o;
         return capacity == arr.capacity && size == arr.size
-                && Arrays.equals(elems, arr.elems);
+               && Arrays.equals(elems, arr.elems);
     }
 
     /**

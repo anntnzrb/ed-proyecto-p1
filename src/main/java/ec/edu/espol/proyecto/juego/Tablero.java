@@ -5,7 +5,6 @@ import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
 import javafx.scene.control.Button;
 
-import java.awt.*;
 import java.util.Locale;
 import java.util.stream.IntStream;
 
@@ -51,7 +50,8 @@ public class Tablero {
                 if (c < palLenght) {
                     cll.addLast(new Button(Character.toString(palComoList.get(c))));
                 } else {
-                    cll.addLast(new Button(Character.toString(Character.toUpperCase(Sistema.getRandomCharABC()))));
+                    cll.addLast(new Button(Character.toString(Character.toUpperCase(
+                            Sistema.getRandomCharABC()))));
                 }
             }
 
@@ -94,6 +94,19 @@ public class Tablero {
         ++extraCols;
     }
 
+    public void removeFila() {
+        tabla.removeLast();
+        --extraFils;
+    }
+
+    public void removeColumna() {
+        /* iterator sobre el ArrayList */
+        IntStream.range(0, fil + extraFils)
+                 .forEachOrdered(i -> tabla.get(i).removeLast());
+
+        --extraCols;
+    }
+
     /**
      * Genera una {@link CircularDoublyLinkedList} que contiene letras (botones)
      * random acorde a las dimensiones del tablero.
@@ -105,7 +118,8 @@ public class Tablero {
                 new CircularDoublyLinkedList<>();
 
         IntStream.range(0, size)
-                 .mapToObj(i -> new Button(Character.toString(Character.toUpperCase(Sistema.getRandomCharABC()))))
+                 .mapToObj(i -> new Button(Character.toString(Character.toUpperCase(
+                         Sistema.getRandomCharABC()))))
                  .forEachOrdered(newCLL::addLast);
 
         return newCLL;

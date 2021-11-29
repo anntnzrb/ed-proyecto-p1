@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.proyecto.juego;
 
 /**
- *
  * @author Personal
  */
-public class Jugador {   
+public class Jugador {
     private String nickname;
-    private int puntaje;
+    private int    puntaje;
 
     public Jugador(String nickname, int puntaje) {
         this.nickname = nickname;
@@ -37,7 +31,6 @@ public class Jugador {
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
-    
-    
-    
+
+
 }

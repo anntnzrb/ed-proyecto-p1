@@ -6,7 +6,7 @@ package ec.edu.espol.proyecto.tda;
  * @param <E> tipo de dato para el Node
  */
 public class Node<E> {
-    private E data;
+    private E       data;
     private Node<E> next;
     private Node<E> prev;
 
