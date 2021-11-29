@@ -1,6 +1,7 @@
 package ec.edu.espol.proyecto.controller;
 
 import ec.edu.espol.proyecto.MainApp;
+import ec.edu.espol.proyecto.juego.Jugador;
 import ec.edu.espol.proyecto.juego.Tablero;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
+import javafx.scene.control.Label;
 
 public class TableroController implements Initializable {
 
@@ -44,9 +46,18 @@ public class TableroController implements Initializable {
 
     @FXML
     private Button btnPuntaje;
-
+    
+    @FXML
+    private Label LabelPuntaje;
+    
     @FXML
     private Button btnVidas;
+    
+    @FXML
+    private Label LabelVidas;
+    
+    @FXML
+    private Label LabelNombre;
 
     @FXML
     private Button btnRegresar;
@@ -119,6 +130,13 @@ public class TableroController implements Initializable {
     public void initialize(final URL location, final ResourceBundle resources) {
         tbl = new Tablero("animales" + ".txt", 11);
         armarTablero();
+        
+        Jugador jugador= new Jugador("Carlos",0);
+        LabelNombre.setText("Hola " + jugador.getNickname());
+        
+        LabelPuntaje.setText(String.valueOf(jugador.getPuntaje()));
+        
+        LabelVidas.setText(String.valueOf(jugador.getVidas()));
 
         choiceBoxFilaCol.getItems().addAll(inserciones);
         choiceBoxFilaCol.setValue(inserciones[0]);
