@@ -76,10 +76,27 @@ public enum Sistema {
      * lo que simplemente se retorna genera un número aleatorio entre ese
      * rango (inclusivo) y se transforma a char.
      *
+     * @param isUpperCase si se desea el valor del caracter en mayúsculas
      * @return caracter del alfabeto inglés
      */
-    static char getRandomCharABC() {
-        return (char) ThreadLocalRandom.current().nextInt('a', 'z' + 1);
+    static char getRandomCharABC(final boolean isUpperCase) {
+        return isUpperCase
+               ? (char) ThreadLocalRandom.current()
+                                         .nextInt('A', 'Z' + 1)
+               : (char) ThreadLocalRandom.current()
+                                         .nextInt('a', 'z' + 1);
+    }
+
+    /**
+     * Retorna un String aleatorio (tamaño 1) del alfabeto inglés.
+     * <p>
+     * Este método invoca internamente a {@link #getRandomCharABC(boolean)}.
+     *
+     * @param isUpperCase si se desea el valor del caracter en mayúsculas
+     * @return String del alfabeto inglés
+     */
+    static String getRandomStringABC(final boolean isUpperCase) {
+        return Character.toString(getRandomCharABC(isUpperCase));
     }
 
     /**
@@ -118,6 +135,9 @@ public enum Sistema {
     /**
      * Función helper para cambiar 2 índices pasados por parámetro de una
      * colección.
+     * <p>
+     * NOTA: Este método fue diseñado para emular el compartamiento de el
+     * método shuffle de {@link java.util.Collections}.
      *
      * @param xs  colección a ser procesada
      * @param i   índice 1

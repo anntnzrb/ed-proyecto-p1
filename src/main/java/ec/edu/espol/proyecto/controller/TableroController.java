@@ -9,58 +9,46 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
-import javafx.scene.control.Label;
 
 public class TableroController implements Initializable {
 
     private final String[] inserciones = {"fila", "columna"};
-    private       int      comodines   = 2;
     private       Tablero  tbl;
+    private       int      comodines   = 2;
 
     @FXML
-    private GridPane tableroGP;
-
+    private GridPane          tableroGP;
     @FXML
-    private ChoiceBox<String> choiceBoxFilaCol;
-
+    private ChoiceBox<String> insercionesCB;
     @FXML
-    private ChoiceBox desplazarChoiceBox;
-
+    private ChoiceBox         desplazarCB;
     @FXML
-    private Button btnEliminar;
-
+    private Button            btnEliminar;
     @FXML
-    private Button btnInsertar;
-
+    private Button            btnInsertar;
     @FXML
-    private Button btnDespDer;
-
+    private Button            btnDespDer;
     @FXML
-    private Button btnDespIzq;
-
+    private Button            btnDespIzq;
     @FXML
-    private Button btnPuntaje;
-    
+    private Button            btnPuntaje;
     @FXML
-    private Label LabelPuntaje;
-    
+    private Label             lblPuntajeJug;
     @FXML
-    private Button btnVidas;
-    
+    private Button            btnVidas;
     @FXML
-    private Label LabelVidas;
-    
+    private Label             lblVidasJug;
     @FXML
-    private Label LabelNombre;
-
+    private Label             lblNombreJug;
     @FXML
-    private Button btnRegresar;
+    private Button            btnRegresar;
 
     @FXML
     private void onRegresarBtnClick() {
@@ -93,9 +81,9 @@ public class TableroController implements Initializable {
     @FXML
     private void onBtnInsertarClick() {
         if (comodines > 0) {
-            if (choiceBoxFilaCol.getValue().equals("fila")) {
+            if (insercionesCB.getValue().equals("fila")) {
                 tbl.addFila();
-            } else if (choiceBoxFilaCol.getValue().equals("columna")) {
+            } else if (insercionesCB.getValue().equals("columna")) {
                 tbl.addColumna();
             }
 
@@ -111,9 +99,9 @@ public class TableroController implements Initializable {
     @FXML
     private void onBtnEliminarClick() {
         if (comodines > 0) {
-            if (choiceBoxFilaCol.getValue().equals("fila")) {
+            if (insercionesCB.getValue().equals("fila")) {
                 tbl.removeFila();
-            } else if (choiceBoxFilaCol.getValue().equals("columna")) {
+            } else if (insercionesCB.getValue().equals("columna")) {
                 tbl.removeColumna();
             }
 
@@ -128,22 +116,23 @@ public class TableroController implements Initializable {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        /* crear tablero */
         tbl = new Tablero("animales" + ".txt", 11);
         armarTablero();
-        
-        Jugador jugador= new Jugador("Carlos",0);
-        LabelNombre.setText("Hola " + jugador.getNickname());
-        
-        LabelPuntaje.setText(String.valueOf(jugador.getPuntaje()));
-        
-        LabelVidas.setText(String.valueOf(jugador.getVidas()));
 
-        choiceBoxFilaCol.getItems().addAll(inserciones);
-        choiceBoxFilaCol.setValue(inserciones[0]);
+        /* crear Jugador */
+        final Jugador jugador = new Jugador("Carlos", 0);
+        lblNombreJug.setText("Hola, " + jugador.getNickname());
+        lblPuntajeJug.setText(String.valueOf(jugador.getPuntaje()));
+        lblVidasJug.setText(String.valueOf(jugador.getVidas()));
+
+        /* menu inserciones */
+        insercionesCB.getItems().addAll(inserciones);
+        insercionesCB.setValue(inserciones[0]);
 
         /* llenar CB con las filas del tablero */
         IntStream.range(0, tbl.getTabla().size())
-                 .forEach(desplazarChoiceBox.getItems()::add);
-        desplazarChoiceBox.setValue(0);
+                 .forEach(desplazarCB.getItems()::add);
+        desplazarCB.setValue(0);
     }
 }

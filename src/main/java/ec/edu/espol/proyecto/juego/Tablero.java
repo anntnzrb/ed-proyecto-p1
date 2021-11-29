@@ -20,10 +20,12 @@ public class Tablero {
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
-        col = 1;
+        col = 1; // siempre es 1 (ya que es una CLL por fila)
 
+        /* modificaciones del tablero en 0 */
         extraFils = extraCols = 0;
 
+        /* la tabla es un ArrayList que contiene muchos CLL */
         tabla = new ArrayList<>();
 
         /* iterator sobre el ArrayList */
@@ -50,15 +52,21 @@ public class Tablero {
                 if (c < palLenght) {
                     cll.addLast(new Button(Character.toString(palComoList.get(c))));
                 } else {
-                    cll.addLast(new Button(Character.toString(Character.toUpperCase(
-                            Sistema.getRandomCharABC()))));
+                    cll.addLast(new Button(Sistema.getRandomStringABC(true)));
                 }
             }
 
+            /* finalmente agregar la CLL con sus letras al tablero */
             tabla.addLast(cll);
         }
     }
 
+    /**
+     * Desplaza una fila de letras en direcciones izquierda o derecha.
+     *
+     * @param idx  índice de la fila a desplazar
+     * @param lado dirección a desplazar (izquierda o derecha)
+     */
     public void desplazar(final int idx, final char lado) {
         tabla.get(idx).desplazarNodos(lado);
     }
@@ -72,6 +80,7 @@ public class Tablero {
         final CircularDoublyLinkedList<Button> newFilCLL =
                 genCLL(fil + extraCols);
 
+        /* finalmente agregar la CLL con sus letras al tablero */
         tabla.addLast(newFilCLL);
 
         ++extraFils;
@@ -94,11 +103,19 @@ public class Tablero {
         ++extraCols;
     }
 
+    /**
+     * Remueve una fila del tablero.
+     * NOTA: Por predeterminado se remueve la última fila del tablero.
+     */
     public void removeFila() {
         tabla.removeLast();
         --extraFils;
     }
 
+    /**
+     * Remueve una columna del tablero.
+     * NOTA: Por predeterminado se remueve la última columna del tablero.
+     */
     public void removeColumna() {
         /* iterator sobre el ArrayList */
         IntStream.range(0, fil + extraFils)
@@ -118,25 +135,20 @@ public class Tablero {
                 new CircularDoublyLinkedList<>();
 
         IntStream.range(0, size)
-                 .mapToObj(i -> new Button(Character.toString(Character.toUpperCase(
-                         Sistema.getRandomCharABC()))))
+                 .mapToObj(i -> new Button(Sistema.getRandomStringABC(true)))
                  .forEachOrdered(newCLL::addLast);
 
         return newCLL;
     }
 
+    /**
+     * Método auxiliar para mostrar el tablero en consola.
+     */
     public void mostrarTablero() {
         tabla.forEach(cll -> System.out.printf("%s\n", cll));
     }
 
-    public int getFil() {
-        return fil;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
+    /* getters & setters */
     public ArrayList<CircularDoublyLinkedList<Button>> getTabla() {
         return tabla;
     }

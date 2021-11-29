@@ -1,146 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyecto.controller.TableroController">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="463.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16"
+      fx:controller="ec.edu.espol.proyecto.controller.TableroController">
     <children>
-        <ImageView fitHeight="500.0" fitWidth="700.0" layoutY="-2.0" opacity="0.31" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="500.0" fitWidth="700.0" layoutY="-2.0" opacity="0.31" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@fondo.png" />
+                <Image url="@fondo.png"/>
             </image>
         </ImageView>
-        <Text fill="#e30b0b" layoutX="45.0" layoutY="47.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="0.0" text="SOPA DE LETRAS" textAlignment="CENTER">
+        <Text fill="#e30b0b" layoutX="45.0" layoutY="47.0" strokeLineCap="ROUND" strokeLineJoin="ROUND"
+              strokeWidth="0.0" text="SOPA DE LETRAS" textAlignment="CENTER">
             <font>
-                <Font name="Goudy Stout" size="39.0" />
+                <Font name="Goudy Stout" size="39.0"/>
             </font>
             <effect>
-                <ColorAdjust brightness="0.05" contrast="0.87" hue="-0.12" saturation="0.09" />
+                <ColorAdjust brightness="0.05" contrast="0.87" hue="-0.12" saturation="0.09"/>
             </effect>
             <cursor>
-                <Cursor fx:constant="CROSSHAIR" />
+                <Cursor fx:constant="CROSSHAIR"/>
             </cursor>
         </Text>
-        <GridPane fx:id="tableroGP" alignment="CENTER" gridLinesVisible="true" layoutX="311.0" layoutY="68.0" prefHeight="312.0" prefWidth="357.0">
+        <GridPane fx:id="tableroGP" alignment="CENTER" gridLinesVisible="true" layoutX="311.0" layoutY="68.0"
+                  prefHeight="312.0" prefWidth="357.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
         </GridPane>
-        <Button fx:id="btnEliminar" layoutX="196.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnEliminarClick" text="Eliminar">
+        <Button fx:id="btnEliminar" layoutX="196.0" layoutY="104.0" mnemonicParsing="false"
+                onAction="#onBtnEliminarClick" text="Eliminar">
             <font>
-                <Font name="System Bold Italic" size="16.0" />
+                <Font name="System Bold Italic" size="16.0"/>
             </font>
         </Button>
-        <Button fx:id="btnInsertar" layoutX="112.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnInsertarClick" text="Insertar">
+        <Button fx:id="btnInsertar" layoutX="112.0" layoutY="104.0" mnemonicParsing="false"
+                onAction="#onBtnInsertarClick" text="Insertar">
             <font>
-                <Font name="System Bold Italic" size="16.0" />
+                <Font name="System Bold Italic" size="16.0"/>
             </font>
         </Button>
         <Button fx:id="btnDespDer" layoutX="159.0" layoutY="242.0" mnemonicParsing="false" text="Desplazar-&gt;">
             <font>
-                <Font name="System Bold Italic" size="16.0" />
+                <Font name="System Bold Italic" size="16.0"/>
             </font>
         </Button>
         <Button fx:id="btnDespIzq" layoutX="13.0" layoutY="242.0" mnemonicParsing="false" text="&lt;-Desplazar">
             <font>
-                <Font name="System Bold Italic" size="16.0" />
+                <Font name="System Bold Italic" size="16.0"/>
             </font>
         </Button>
-        <Button fx:id="btnPuntaje" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
+        <Button fx:id="btnPuntaje" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" prefHeight="44.0"
+                prefWidth="44.0">
             <font>
-                <Font name="System Bold Italic" size="20.0" />
+                <Font name="System Bold Italic" size="20.0"/>
             </font>
         </Button>
-        <Button fx:id="btnVidas" layoutX="237.0" layoutY="344.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
+        <Button fx:id="btnVidas" layoutX="237.0" layoutY="344.0" mnemonicParsing="false" prefHeight="44.0"
+                prefWidth="44.0">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
         </Button>
         <Label layoutX="16.0" layoutY="348.0" prefHeight="35.0" prefWidth="80.0" text="Puntaje:">
             <font>
-                <Font name="System Bold Italic" size="19.0" />
+                <Font name="System Bold Italic" size="19.0"/>
             </font>
         </Label>
         <Label layoutX="161.0" layoutY="353.0" text="Vidas:">
             <font>
-                <Font name="System Bold Italic" size="20.0" />
+                <Font name="System Bold Italic" size="20.0"/>
             </font>
         </Label>
         <Label layoutX="19.0" layoutY="177.0" text="Seleccione la fila">
             <font>
-                <Font name="System Bold Italic" size="14.0" />
+                <Font name="System Bold Italic" size="14.0"/>
             </font>
         </Label>
         <Label layoutX="9.0" layoutY="194.0" text="que desea desplazar">
             <font>
-                <Font name="System Bold Italic" size="14.0" />
+                <Font name="System Bold Italic" size="14.0"/>
             </font>
         </Label>
-        <ChoiceBox fx:id="desplazarChoiceBox" layoutX="181.0" layoutY="183.0" prefHeight="24.0" prefWidth="87.0" />
+        <ChoiceBox fx:id="desplazarCB" layoutX="181.0" layoutY="183.0" prefHeight="24.0" prefWidth="87.0"/>
         <Label layoutX="11.0" layoutY="224.0" text="Seleccione el lado del desplazamiento">
             <font>
-                <Font name="System Bold Italic" size="14.0" />
+                <Font name="System Bold Italic" size="14.0"/>
             </font>
         </Label>
         <Label layoutX="15.0" layoutY="77.0" text="Inserte una fila o una columna">
             <font>
-                <Font name="System Bold Italic" size="14.0" />
+                <Font name="System Bold Italic" size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="btnRegresar" layoutX="12.0" layoutY="410.0" mnemonicParsing="false" onAction="#onRegresarBtnClick" text="Regresar">
+        <Button fx:id="btnRegresar" layoutX="12.0" layoutY="410.0" mnemonicParsing="false"
+                onAction="#onRegresarBtnClick" text="Regresar">
             <font>
-                <Font name="System Bold Italic" size="16.0" />
+                <Font name="System Bold Italic" size="16.0"/>
             </font>
         </Button>
-        <ChoiceBox fx:id="choiceBoxFilaCol" layoutX="13.0" layoutY="109.0" prefHeight="24.0" prefWidth="87.0" />
-      <Label fx:id="LabelPuntaje" layoutX="111.0" layoutY="352.0" prefHeight="30.0" prefWidth="28.0" text="Label">
-         <font>
-            <Font name="Goudy Stout" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="LabelVidas" layoutX="246.0" layoutY="359.0" prefHeight="17.0" prefWidth="28.0" text="Label">
-         <font>
-            <Font name="Goudy Stout" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="LabelNombre" layoutX="311.0" layoutY="410.0" text="Label">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
+        <ChoiceBox fx:id="insercionesCB" layoutX="13.0" layoutY="109.0" prefHeight="24.0" prefWidth="87.0"/>
+        <Label fx:id="lblPuntajeJug" layoutX="111.0" layoutY="352.0" prefHeight="30.0" prefWidth="28.0" text="Label">
+            <font>
+                <Font name="Goudy Stout" size="12.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblVidasJug" layoutX="246.0" layoutY="359.0" prefHeight="17.0" prefWidth="28.0" text="Label">
+            <font>
+                <Font name="Goudy Stout" size="12.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblNombreJug" layoutX="311.0" layoutY="410.0" text="Label">
+            <font>
+                <Font name="System Bold Italic" size="18.0"/>
+            </font>
+        </Label>
     </children>
 </Pane>

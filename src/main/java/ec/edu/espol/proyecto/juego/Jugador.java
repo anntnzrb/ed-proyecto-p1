@@ -6,7 +6,7 @@ package ec.edu.espol.proyecto.juego;
 public class Jugador {
     private String nickname;
     private int    puntaje;
-    private int vidas;
+    private int    vidas;
 
     public Jugador(String nickname, int puntaje) {
         this.nickname = nickname;
@@ -33,8 +33,8 @@ public class Jugador {
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
-    
-     public int getVidas() {
+
+    public int getVidas() {
         return vidas;
     }
 
