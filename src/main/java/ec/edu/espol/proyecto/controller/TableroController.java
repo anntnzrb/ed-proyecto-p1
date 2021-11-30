@@ -1,16 +1,19 @@
 package ec.edu.espol.proyecto.controller;
 
-import ec.edu.espol.proyecto.MainApp;
 import ec.edu.espol.proyecto.juego.Jugador;
 import ec.edu.espol.proyecto.juego.Tablero;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
+import ec.edu.espol.proyecto.utils.Util;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,8 +21,9 @@ import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
 public class TableroController implements Initializable {
-
     private final String[] inserciones = {"fila", "columna"};
+    /* JFX */
+    private Stage stage;
     private       Tablero  tbl;
     private       int      comodines   = 2;
 
@@ -51,12 +55,10 @@ public class TableroController implements Initializable {
     private Button            btnRegresar;
 
     @FXML
-    private void onRegresarBtnClick() {
-        try {
-            MainApp.setRoot("main");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
+        stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
+        stage.setScene(Util.getNewScene("main"));
+        stage.show();
     }
 
     private void armarTablero() {

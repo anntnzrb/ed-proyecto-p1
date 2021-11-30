@@ -3,6 +3,7 @@ package ec.edu.espol.proyecto.juego;
 import ec.edu.espol.proyecto.tda.ArrayList;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
+import ec.edu.espol.proyecto.utils.Sistema;
 import javafx.scene.control.Button;
 
 import java.util.Locale;

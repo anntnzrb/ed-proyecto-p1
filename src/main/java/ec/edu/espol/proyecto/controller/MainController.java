@@ -1,28 +1,31 @@
 package ec.edu.espol.proyecto.controller;
 
-import ec.edu.espol.proyecto.MainApp;
+import ec.edu.espol.proyecto.utils.Util;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
     /**
      * arreglo con las posibles dimensiones del tablero
      */
     private final String[] dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
     private final String[] temas       =
             {"animales", "deportes", "frutas", "paises"};
-
     @FXML
     protected ChoiceBox<String> temaCB;
+    /* JFX */
+    private Stage stage;
     @FXML
     private   ChoiceBox<String> dimTableroCB;
     @FXML
@@ -34,17 +37,16 @@ public class MainController implements Initializable {
 
 
     @FXML
-    private void onJugarBtnClick() {
+    private void onJugarBtnClick(final ActionEvent ae) throws IOException {
         final int dim = getDimTablero();
         System.out.printf(
                 "El jugador ha elegido un tablero de dimensiones: %dx%d\n",
                 dim,
                 dim);
-        try {
-            MainApp.setRoot("second");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+
+        stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
+        stage.setScene(Util.getNewScene("second"));
+        stage.show();
     }
 
 

@@ -1,4 +1,4 @@
-package ec.edu.espol.proyecto.juego;
+package ec.edu.espol.proyecto.utils;
 
 
 import ec.edu.espol.proyecto.MainApp;
@@ -50,7 +50,7 @@ public enum Sistema {
      * @param archivo Archivo a analizar
      * @return String random de la colección
      */
-    static String obtenerPalabra(final String archivo) {
+    public static String obtenerPalabra(final String archivo) {
         final List<String> listPalabras = leerArchivo(archivo);
 
         return Objects.requireNonNull(listPalabras)
@@ -95,7 +95,7 @@ public enum Sistema {
      * @param isUpperCase si se desea el valor del caracter en mayúsculas
      * @return String del alfabeto inglés
      */
-    static String getRandomStringABC(final boolean isUpperCase) {
+    public static String getRandomStringABC(final boolean isUpperCase) {
         return Character.toString(getRandomCharABC(isUpperCase));
     }
 
@@ -105,7 +105,7 @@ public enum Sistema {
      * @param palabra palabra a ser transformada a colección de caracteres
      * @return colección de caracteres
      */
-    static List<Character> palComoCharList(final String palabra) {
+    public static List<Character> palComoCharList(final String palabra) {
         final List<Character> xs = new ArrayList<>();
         for (final char ch : palabra.toCharArray()) {
             xs.addLast(ch);
@@ -123,7 +123,7 @@ public enum Sistema {
      * @param xs  colección la cual sus elementso serán mezclados aleatoriamente
      * @param <T> tipo de la colección
      */
-    static <T> void shuffleList(final List<T> xs) {
+    public static <T> void shuffleList(final List<T> xs) {
         final int xsSize = xs.size();
         for (int i = 0; i < xsSize; i++) {
             final int change =

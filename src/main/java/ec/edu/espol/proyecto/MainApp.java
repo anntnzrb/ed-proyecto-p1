@@ -1,8 +1,7 @@
 package ec.edu.espol.proyecto;
 
+import ec.edu.espol.proyecto.utils.Util;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -13,28 +12,6 @@ import java.util.Objects;
 public class MainApp extends Application {
 
     private static Scene scene;
-
-    /**
-     * Actualiza la escena, método empleado para cambiar escenas.
-     *
-     * @param fxml archivo de tipo FXML de la escena
-     * @throws IOException arroja error si no se encuentra el archivo FXML
-     */
-    public static void setRoot(final String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    /**
-     * Busca y carga el archivo FXML.
-     *
-     * @param fxml archivo de tipo FXML de la escena
-     * @return nodo de tipo Parent
-     * @throws IOException arroja error si no se encuentra el archivo FXML
-     */
-    private static Parent loadFXML(final String fxml) throws IOException {
-        return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"))
-                .load();
-    }
 
     public static void main(final String... argv) {
         launch(argv);
@@ -52,7 +29,8 @@ public class MainApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws IOException {
-        scene = new Scene(loadFXML("main"));
+        scene = new Scene(Util.loadFXML("main"));
+
         /* ********************************************************************
          * Stage
          * ***************************************************************** */
