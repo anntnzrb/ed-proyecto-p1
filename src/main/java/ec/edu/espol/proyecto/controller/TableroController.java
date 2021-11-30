@@ -80,15 +80,15 @@ public class TableroController implements Initializable {
         tbl.mostrarTablero();
     }
 
-    //@FXML
-    //private void onBtnDespDerClick() {
-    //    //
-    //}
+    @FXML
+    private void onBtnDespIzqClick() {
+        tbl.desplazar(desplazarCB.getValue(), 'i');
+    }
 
-    //@FXML
-    //private void onBtnDespIzqClick() {
-    //    //
-    //}
+    @FXML
+    private void onBtnDespDerClick() {
+        tbl.desplazar(desplazarCB.getValue(), 'd');
+    }
 
     @FXML
     private void onBtnInsertarClick() {

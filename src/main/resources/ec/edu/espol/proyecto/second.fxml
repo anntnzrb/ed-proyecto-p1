@@ -70,12 +70,12 @@
                 <Font name="System Bold Italic" size="16.0" />
             </font>
         </Button>
-        <Button fx:id="btnDespDer" layoutX="159.0" layoutY="242.0" mnemonicParsing="false" text="Desplazar-&gt;">
+        <Button fx:id="btnDespDer" layoutX="159.0" layoutY="242.0" mnemonicParsing="false" onAction="#onBtnDespDerClick" text="Desplazar-&gt;">
             <font>
                 <Font name="System Bold Italic" size="16.0" />
             </font>
         </Button>
-        <Button fx:id="btnDespIzq" layoutX="13.0" layoutY="242.0" mnemonicParsing="false" text="&lt;-Desplazar">
+        <Button fx:id="btnDespIzq" layoutX="13.0" layoutY="242.0" mnemonicParsing="false" onAction="#onBtnDespIzqClick" text="&lt;-Desplazar">
             <font>
                 <Font name="System Bold Italic" size="16.0" />
             </font>
