@@ -23,36 +23,40 @@ import java.util.stream.IntStream;
 public class TableroController implements Initializable {
     private final String[] inserciones = {"fila", "columna"};
     /* JFX */
-    private Stage stage;
-    private       Tablero  tbl;
-    private       int      comodines   = 2;
+    private       Stage    stage;
+
+    /* juego */
+    private Tablero tbl;
+    private Jugador jugador;
+    private int     numErrores;
+    private int     comodines;
 
     @FXML
-    private GridPane          tableroGP;
+    private GridPane           tableroGP;
     @FXML
-    private ChoiceBox<String> insercionesCB;
+    private ChoiceBox<String>  insercionesCB;
     @FXML
-    private ChoiceBox         desplazarCB;
+    private ChoiceBox<Integer> desplazarCB;
     @FXML
-    private Button            btnEliminar;
+    private Button             btnEliminar;
     @FXML
-    private Button            btnInsertar;
+    private Button             btnInsertar;
     @FXML
-    private Button            btnDespDer;
+    private Button             btnDespDer;
     @FXML
-    private Button            btnDespIzq;
+    private Button             btnDespIzq;
     @FXML
-    private Button            btnPuntaje;
+    private Button             btnPuntaje;
     @FXML
-    private Label             lblPuntajeJug;
+    private Label              lblPuntajeJug;
     @FXML
-    private Button            btnVidas;
+    private Button             btnVidas;
     @FXML
-    private Label             lblVidasJug;
+    private Label              lblVidasJug;
     @FXML
-    private Label             lblNombreJug;
+    private Label              lblNombreJug;
     @FXML
-    private Button            btnRegresar;
+    private Button             btnRegresar;
 
     @FXML
     private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
@@ -61,6 +65,9 @@ public class TableroController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Arma el tablero con valores aleatorios.
+     */
     private void armarTablero() {
         final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
         for (int i = 0; i < listCLL.size(); i++) {
@@ -105,6 +112,35 @@ public class TableroController implements Initializable {
     }
 
     @FXML
+    private void onBtnVerificarClick() {
+        if (numErrores < 3) {
+            final List<String> listPalabras = tbl.getListPalabras();
+            final String palabra = tbl.getPalabraVerif();
+
+            if (listPalabras.contains(palabra)) {
+                System.out.println("El jugador ha encontrado la palabra: "
+                                   + palabra);
+                tbl.setPuntaje(tbl.getPuntaje() + palabra.length());
+
+                /* actualizar */
+                actualizarJuego(true);
+            } else {
+                System.out.println("La palabra ingresada no es válida");
+                tbl.setPuntaje(tbl.getPuntaje() - palabra.length());
+
+                /* actualizar */
+                actualizarJuego(false);
+            }
+
+            /* siempre se limpiará posterior a verificar */
+            tbl.limpiarStrBld();
+            System.out.println(tbl.getPuntaje());
+        } else {
+            System.out.println("El jugador ya no puede seguir jugando.");
+        }
+    }
+
+    @FXML
     private void onBtnEliminarClick() {
         if (comodines > 0) {
             if (insercionesCB.getValue().equals("fila")) {
@@ -125,17 +161,35 @@ public class TableroController implements Initializable {
         --comodines;
     }
 
+    /**
+     * Actualiza los valores de los elementos gráficos.
+     *
+     * @param estado @{true} si se actualiza cuando el jugador ha ganado
+     */
+    private void actualizarJuego(final boolean estado) {
+        if (!estado) {
+            lblVidasJug.setText(String.valueOf(++numErrores));
+        }
+
+        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        /* juego */
+        /* inicialmente el jugador tiene 2 comodines y 0 errores */
+        numErrores = 0;
+        comodines = 2;
+
         /* crear tablero */
-        tbl = new Tablero("animales" + ".txt", 11);
+        tbl = new Tablero("animales" + ".txt", 6);
         armarTablero();
 
         /* crear Jugador */
-        final Jugador jugador = new Jugador("Carlos", 0);
+        jugador = new Jugador("Carlos");
         lblNombreJug.setText("Hola, " + jugador.getNickname());
-        lblPuntajeJug.setText(String.valueOf(jugador.getPuntaje()));
-        lblVidasJug.setText(String.valueOf(jugador.getVidas()));
+        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
+        lblVidasJug.setText(String.valueOf(numErrores));
 
         /* menu inserciones */
         insercionesCB.getItems().addAll(inserciones);

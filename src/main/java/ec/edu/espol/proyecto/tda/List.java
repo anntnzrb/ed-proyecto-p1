@@ -79,4 +79,12 @@ public interface List<E> extends Iterable<E> {
     E get(final int idx);
 
     E set(final int idx, final E e);
+
+    /**
+     * Verifica si el elemento pasado se encuentra presente en la colección.
+     *
+     * @param elem elemento a verificar
+     * @return {@code true} si se encuentra el elemento
+     */
+    boolean contains(E elem);
 }

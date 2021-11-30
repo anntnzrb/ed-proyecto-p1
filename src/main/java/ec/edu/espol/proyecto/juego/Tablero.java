@@ -17,17 +17,32 @@ public class Tablero {
     int extraFils;
     int extraCols;
 
+    /*  */
+    StringBuilder strBld;
+
+    private int puntaje;
+
     ArrayList<CircularDoublyLinkedList<Button>> tabla;
+    List<String> listPalabras;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
         col = 1; // siempre es 1 (ya que es una CLL por fila)
+
+        /* se inicia con puntaje en 0 */
+        puntaje = 0;
 
         /* modificaciones del tablero en 0 */
         extraFils = extraCols = 0;
 
         /* la tabla es un ArrayList que contiene muchos CLL */
         tabla = new ArrayList<>();
+
+        /* lista que contiene las palabras válidas */
+        listPalabras = new ArrayList<>();
+
+        /* StringBuilder que arma la palabra */
+        strBld = new StringBuilder();
 
         /* iterator sobre el ArrayList */
         for (int i = 0; i < fil; ++i) {
@@ -39,22 +54,29 @@ public class Tablero {
                                 .toUpperCase(Locale.ROOT);
             int palLenght = pal.length();
             while (palLenght > dimension) {
-                pal = Sistema.obtenerPalabra(archivo);
+                pal = Sistema.obtenerPalabra(archivo).toUpperCase(Locale.ROOT);
                 palLenght = pal.length();
             }
+            listPalabras.addLast(pal);
 
             /* transformar la palabra a una colección de caracteres para
              * posterior randomizar el órden de sus caracteres (letras).
              */
             final List<Character> palComoList = Sistema.palComoCharList(pal);
-            Sistema.shuffleList(palComoList);
+            //Sistema.shuffleList(palComoList);
 
             for (int c = 0; c < fil; ++c) {
+                Button btn;
                 if (c < palLenght) {
-                    cll.addLast(new Button(Character.toString(palComoList.get(c))));
+                    btn = new Button(Character.toString(palComoList.get(c)));
                 } else {
-                    cll.addLast(new Button(Sistema.getRandomStringABC(true)));
+                    btn = new Button(Sistema.getRandomStringABC(true));
                 }
+
+                btn.setOnAction(ev -> {
+                    strBld.append(btn.getText());
+                });
+                cll.addLast(btn);
             }
 
             /* finalmente agregar la CLL con sus letras al tablero */
@@ -149,8 +171,28 @@ public class Tablero {
         tabla.forEach(cll -> System.out.printf("%s\n", cll));
     }
 
+    public void limpiarStrBld() {
+        strBld.setLength(0);
+    }
+
     /* getters & setters */
     public ArrayList<CircularDoublyLinkedList<Button>> getTabla() {
         return tabla;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public String getPalabraVerif() {
+        return strBld.toString();
+    }
+
+    public List<String> getListPalabras() {
+        return listPalabras;
     }
 }

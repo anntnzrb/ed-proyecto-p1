@@ -315,6 +315,17 @@ public class ArrayList<E> implements List<E> {
         return oldVal;
     }
 
+    @Override
+    public boolean contains(final E elem) {
+        for (int i = 0; i < size; ++i) {
+            if (elems[i].equals(elem)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * {@inheritDoc}
      * <p>

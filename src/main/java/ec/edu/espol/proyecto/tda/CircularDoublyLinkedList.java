@@ -344,6 +344,11 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         return null;
     }
 
+    @Override
+    public boolean contains(final E elem) {
+        return false;
+    }
+
     public void desplazarNodos(final char lado) {
         Node<E> tmpNode;
         final List<E> tmpCLL = new CircularDoublyLinkedList<>();
