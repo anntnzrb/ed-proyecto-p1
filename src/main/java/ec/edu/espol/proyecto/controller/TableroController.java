@@ -105,7 +105,7 @@ public class TableroController implements Initializable {
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
         } else {
-            System.out.println("El jugador no tiene mas comodines");
+            Util.err("No tiene mas comodines.", true);
         }
 
         --comodines;
@@ -118,14 +118,14 @@ public class TableroController implements Initializable {
             final String palabra = tbl.getPalabraVerif();
 
             if (listPalabras.contains(palabra)) {
-                System.out.println("El jugador ha encontrado la palabra: "
-                                   + palabra);
+                Util.alert("Usted ha encontrado la palabra: " + palabra,
+                           true);
                 tbl.setPuntaje(tbl.getPuntaje() + palabra.length());
 
                 /* actualizar */
                 actualizarJuego(true);
             } else {
-                System.out.println("La palabra ingresada no es válida");
+                Util.err("La palabra ingresada no es válida", true);
                 tbl.setPuntaje(tbl.getPuntaje() - palabra.length());
 
                 /* actualizar */
@@ -134,9 +134,8 @@ public class TableroController implements Initializable {
 
             /* siempre se limpiará posterior a verificar */
             tbl.limpiarStrBld();
-            System.out.println(tbl.getPuntaje());
         } else {
-            System.out.println("El jugador ya no puede seguir jugando.");
+            Util.err("Juego terminado, ya no tiene mas intentos", true);
         }
     }
 
@@ -155,7 +154,7 @@ public class TableroController implements Initializable {
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
         } else {
-            System.out.println("El jugador no tiene mas comodines");
+            Util.err("Usted no tiene mas comodines", true);
         }
 
         --comodines;
