@@ -4,7 +4,6 @@ import ec.edu.espol.proyecto.utils.Util;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -12,28 +11,26 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController {
     /**
      * arreglo con las posibles dimensiones del tablero
      */
-    private final String[] dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
-    private final String[] temas       =
+    private final String[]          dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
+    private final String[]          temas       =
             {"animales", "deportes", "frutas", "paises"};
     @FXML
-    protected ChoiceBox<String> temaCB;
+    protected     ChoiceBox<String> temaCB;
     /* JFX */
-    private Stage stage;
+    private       Stage             stage;
     @FXML
-    private   ChoiceBox<String> dimTableroCB;
+    private       ChoiceBox<String> dimTableroCB;
     @FXML
-    private   GridPane          tableroGP;
+    private       GridPane          tableroGP;
     @FXML
-    private   ChoiceBox<String> numFilaCB;
+    private       ChoiceBox<String> numFilaCB;
     @FXML
-    private   Button            btnJugar;
+    private       Button            btnJugar;
 
 
     @FXML
@@ -65,8 +62,8 @@ public class MainController implements Initializable {
         return Integer.parseInt(dimTableroCB.getValue().split("x")[0]);
     }
 
-    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize() {
         /* agregar las dimensiones al ChoiceBox */
         dimTableroCB.getItems().addAll(dimsTablero);
         temaCB.getItems().addAll(temas);

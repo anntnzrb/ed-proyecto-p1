@@ -6,24 +6,25 @@ import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Sistema;
 import javafx.scene.control.Button;
 
-import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 public class Tablero {
-    int fil;
-    int col;
-
+    /* juego */
+    /* cantidad de palabras máximas a generar */
+    private static final int MAX_PALS_JUEGO = 12;
+    int                                         fil;
+    int                                         col;
     /* cantidad de inserciones extras realizadas */
-    int extraFils;
-    int extraCols;
-
+    int                                         extraFils;
+    int                                         extraCols;
     /*  */
-    StringBuilder strBld;
-
-    private int puntaje;
-
+    StringBuilder                               strBld;
     ArrayList<CircularDoublyLinkedList<Button>> tabla;
-    List<String> listPalabras;
+    List<String>                                listPalabras;
+    List<String>                                listPalabrasValidas;
+    List<Character>                             letras;
+    private int puntaje;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
@@ -35,47 +36,65 @@ public class Tablero {
         /* modificaciones del tablero en 0 */
         extraFils = extraCols = 0;
 
-        /* la tabla es un ArrayList que contiene muchos CLL */
-        tabla = new ArrayList<>();
-
-        /* lista que contiene las palabras válidas */
-        listPalabras = new ArrayList<>();
-
         /* StringBuilder que arma la palabra */
         strBld = new StringBuilder();
 
-        /* iterator sobre el ArrayList */
+        /* lista que contiene todas las palabras */
+        listPalabras = Sistema.leerArchivo(archivo);
+
+        /* lista de palabras válidas */
+        listPalabrasValidas = new ArrayList<>();
+
+        /*
+         * crear una colección que contenga las MAX_PALS_JUEGO cantidad de
+         * palabras (distintas).
+         */
+        int numPals = 0;
+        while (numPals < MAX_PALS_JUEGO) {
+            final String pal = listPalabras.get(
+                    ThreadLocalRandom.current()
+                                     .nextInt(0, listPalabras.size()));
+
+            if (!listPalabrasValidas.contains(pal)) {
+                listPalabrasValidas.addLast(pal);
+                ++numPals;
+            }
+        }
+
+        /* hacer una colección de caracteres a partir de las palabras válidas */
+        letras = new ArrayList<>();
+        listPalabrasValidas.forEach(pal -> {
+            for (final char ch : pal.toCharArray()) {
+                letras.addLast(ch);
+            }
+        });
+
+        /* colección que contiene los índices de las letras a escoger */
+        final List<Integer> indiceLetrasUsadas = new ArrayList<>();
+
+        /* la tabla es un ArrayList que contiene CLLs como filas */
+        tabla = new ArrayList<>();
         for (int i = 0; i < fil; ++i) {
+            /* crear una CLL por fila */
             final CircularDoublyLinkedList<Button> cll =
                     new CircularDoublyLinkedList<>();
 
-            /* obtener una palabra random del archivo de palabras */
-            String pal = Sistema.obtenerPalabra(archivo)
-                                .toUpperCase(Locale.ROOT);
-            int palLenght = pal.length();
-            while (palLenght > dimension) {
-                pal = Sistema.obtenerPalabra(archivo).toUpperCase(Locale.ROOT);
-                palLenght = pal.length();
-            }
-            listPalabras.addLast(pal);
-
-            /* transformar la palabra a una colección de caracteres para
-             * posterior randomizar el órden de sus caracteres (letras).
-             */
-            final List<Character> palComoList = Sistema.palComoCharList(pal);
-            //Sistema.shuffleList(palComoList);
-
-            for (int c = 0; c < fil; ++c) {
-                Button btn;
-                if (c < palLenght) {
-                    btn = new Button(Character.toString(palComoList.get(c)));
+            for (int j = 0; j < fil; ++j) {
+                /* obtener índice random */
+                int num = ThreadLocalRandom.current().nextInt(0, letras.size());
+                /* si el índice no está en la colección, agregarlo */
+                if (!indiceLetrasUsadas.contains(num)) {
+                    indiceLetrasUsadas.addLast(num);
+                    /* si está presente, obtener mas randoms hasta que no esté */
                 } else {
-                    btn = new Button(Sistema.getRandomStringABC(true));
+                    do {
+                        num = ThreadLocalRandom.current()
+                                               .nextInt(0, letras.size());
+                    } while (indiceLetrasUsadas.contains(num));
                 }
 
-                btn.setOnAction(ev -> {
-                    strBld.append(btn.getText());
-                });
+                final Button btn = new Button(Character.toString(letras.get(num)));
+                btn.setOnAction(ev -> strBld.append(btn.getText()));
                 cll.addLast(btn);
             }
 

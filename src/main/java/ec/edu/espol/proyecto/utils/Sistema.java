@@ -25,7 +25,7 @@ public enum Sistema {
      * @param archivo archivo a analizar
      * @return lista de tipo String con cada línea del archivo como un elemento
      */
-    private static List<String> leerArchivo(final String archivo) {
+    public static List<String> leerArchivo(final String archivo) {
         try (final BufferedReader br =
                      new BufferedReader(
                              new InputStreamReader(Objects.requireNonNull(

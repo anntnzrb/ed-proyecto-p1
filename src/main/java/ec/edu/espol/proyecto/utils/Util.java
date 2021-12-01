@@ -48,7 +48,7 @@ public enum Util {
     /**
      * Método que muestra una alerta de error.
      *
-     * @param msg mensaje a mostrar
+     * @param msg   mensaje a mostrar
      * @param isLog @{@code true} si se desea mostrar en consola
      */
     public static void err(final String msg, final boolean isLog, final boolean isExit) {
@@ -73,7 +73,7 @@ public enum Util {
     /**
      * Método que muestra una alerta de información.
      *
-     * @param msg mensaje a mostrar
+     * @param msg   mensaje a mostrar
      * @param isLog @{@code true} si se desea mostrar en consola
      */
     public static void alert(final String msg, final boolean isLog) {

@@ -7,7 +7,6 @@ import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Util;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -16,11 +15,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
-public class TableroController implements Initializable {
+public class TableroController {
     private final String[] inserciones = {"fila", "columna"};
     /* JFX */
     private       Stage    stage;
@@ -95,8 +92,10 @@ public class TableroController implements Initializable {
         if (comodines > 0) {
             if (insercionesCB.getValue().equals("fila")) {
                 tbl.addFila();
+                Util.log("El jugador ha insertado una fila.");
             } else if (insercionesCB.getValue().equals("columna")) {
                 tbl.addColumna();
+                Util.log("El jugador ha insertado una columna.");
             }
 
             /* debug */
@@ -110,6 +109,30 @@ public class TableroController implements Initializable {
 
         --comodines;
     }
+
+    @FXML
+    private void onBtnEliminarClick() {
+        if (comodines > 0) {
+            if (insercionesCB.getValue().equals("fila")) {
+                tbl.removeFila();
+                Util.log("El jugador ha eliminado una fila.");
+            } else if (insercionesCB.getValue().equals("columna")) {
+                tbl.removeColumna();
+                Util.log("El jugador ha eliminado una columna.");
+            }
+
+            /* debug */
+            tbl.mostrarTablero();
+
+            // actualizar tablero
+            System.out.println(tbl.getTabla().size());
+        } else {
+            Util.err("Usted no tiene mas comodines", true);
+        }
+
+        --comodines;
+    }
+
 
     @FXML
     private void onBtnVerificarClick() {
@@ -139,27 +162,6 @@ public class TableroController implements Initializable {
         }
     }
 
-    @FXML
-    private void onBtnEliminarClick() {
-        if (comodines > 0) {
-            if (insercionesCB.getValue().equals("fila")) {
-                tbl.removeFila();
-            } else if (insercionesCB.getValue().equals("columna")) {
-                tbl.removeColumna();
-            }
-
-            /* debug */
-            tbl.mostrarTablero();
-
-            // actualizar tablero
-            System.out.println(tbl.getTabla().size());
-        } else {
-            Util.err("Usted no tiene mas comodines", true);
-        }
-
-        --comodines;
-    }
-
     /**
      * Actualiza los valores de los elementos gráficos.
      *
@@ -173,8 +175,8 @@ public class TableroController implements Initializable {
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
     }
 
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         /* juego */
         /* inicialmente el jugador tiene 2 comodines y 0 errores */
         numErrores = 0;
