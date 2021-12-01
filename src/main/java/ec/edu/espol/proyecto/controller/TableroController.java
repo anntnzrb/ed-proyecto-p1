@@ -22,43 +22,41 @@ public class TableroController {
 
     private final String[] inserciones = {"fila", "columna"};
     /* JFX */
-    private Stage stage;
+    private       Stage    stage;
 
     /* juego */
     private Tablero tbl;
     private Jugador jugador;
-    private int numErrores;
-    private int comodines;
-    private int dimensiones;
+    private int     numErrores;
+    private int     comodines;
+    private int     dimensiones;
     /* sopa de letras */
     ArrayList<CircularDoublyLinkedList<Button>> tabla;
 
     @FXML
-    private GridPane tableroGP;
+    private GridPane           tableroGP;
     @FXML
-    private ChoiceBox<String> insercionesCB;
+    private ChoiceBox<String>  insercionesCB;
     @FXML
     private ChoiceBox<Integer> desplazarCB;
     @FXML
-    private Label lblPuntajeJug;
+    private Label              lblPuntajeJug;
     @FXML
-    private Label lblVidasJug;
+    private Label              lblVidasJug;
     @FXML
-    private Label lblNombreJug;
+    private Label              lblNombreJug;
     @FXML
-    private Label lblTema;
+    private Label              lblTema;
     @FXML
-    private Button btnInsertar;
+    private Button             btnInsertar;
     @FXML
-    private Button btnEliminar;
+    private Button             btnEliminar;
     @FXML
-    private Button btnDespIzq;
+    private Button             btnDespIzq;
     @FXML
-    private Button btnDespDer;
+    private Button             btnDespDer;
     @FXML
-    private Button btnVerificar;
-    @FXML
-    private Button btnIniciar;
+    private Button             btnVerificar;
 
     @FXML
     private void onIniciarBtnClick() {
@@ -74,7 +72,6 @@ public class TableroController {
         btnDespIzq.setDisable(false);
         btnDespDer.setDisable(false);
         btnVerificar.setDisable(false);
-        btnIniciar.setDisable(true);
     }
 
     @FXML
@@ -96,7 +93,7 @@ public class TableroController {
         /* llenar CB con las filas del tablero */
         desplazarCB.getItems().clear();
         IntStream.range(0, tbl.getTabla().size())
-                .forEach(desplazarCB.getItems()::add);
+                 .forEach(desplazarCB.getItems()::add);
         desplazarCB.setValue(0);
     }
 
@@ -123,10 +120,11 @@ public class TableroController {
 
     private void crearJugador() {
         jugador = new Jugador(lblNombreJug.getText());
-        lblNombreJug.setText("Hola, " + jugador.getNickname());
+        lblNombreJug.setText(String.format("Hola, '%s'",
+                                           jugador.getNickname()));
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
         lblVidasJug.setText(String.valueOf(numErrores));
-        lblTema.setText("Tema " + lblTema.getText());
+        lblTema.setText(String.format("Temática: '%s'", lblTema.getText()));
     }
 
     @FXML
@@ -162,13 +160,15 @@ public class TableroController {
             armarGP(tabla);
             actualizarItems();
             tbl.mostrarTablero();
-        } else {
+        }
+
+        --comodines;
+
+        if (comodines == 0) {
             Util.err("No tiene mas comodines.", true);
             btnInsertar.setDisable(true);
             btnEliminar.setDisable(true);
         }
-
-        --comodines;
     }
 
     @FXML
@@ -186,13 +186,15 @@ public class TableroController {
             armarGP(tabla);
             actualizarItems();
             tbl.mostrarTablero();
-        } else {
+        }
+
+        --comodines;
+
+        if (comodines == 0) {
             Util.err("Usted no tiene mas comodines", true);
             btnInsertar.setDisable(true);
             btnEliminar.setDisable(true);
         }
-
-        --comodines;
     }
 
     @FXML
@@ -203,7 +205,7 @@ public class TableroController {
 
             if (listPalabras.contains(palabra)) {
                 Util.alert("Usted ha encontrado la palabra: " + palabra,
-                        true);
+                           true);
                 tbl.setPuntaje(tbl.getPuntaje() + palabra.length());
 
                 /* actualizar */
