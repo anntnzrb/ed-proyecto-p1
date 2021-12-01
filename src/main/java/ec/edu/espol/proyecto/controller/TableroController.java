@@ -2,6 +2,7 @@ package ec.edu.espol.proyecto.controller;
 
 import ec.edu.espol.proyecto.juego.Jugador;
 import ec.edu.espol.proyecto.juego.Tablero;
+import ec.edu.espol.proyecto.tda.ArrayList;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Util;
@@ -36,30 +37,15 @@ public class TableroController {
     @FXML
     private ChoiceBox<Integer> desplazarCB;
     @FXML
-    private Button             btnEliminar;
-    @FXML
-    private Button             btnInsertar;
-    @FXML
-    private Button             btnDespDer;
-    @FXML
-    private Button             btnDespIzq;
-    @FXML
-    private Button             btnPuntaje;
-    @FXML
     private Label              lblPuntajeJug;
-    @FXML
-    private Button             btnVidas;
     @FXML
     private Label              lblVidasJug;
     @FXML
     private Label              lblNombreJug;
     @FXML
-    private Button             btnRegresar;
-    @FXML
-    private Button             btnIniciar;
-    @FXML
     private Label              lblTema;
 
+    ArrayList<CircularDoublyLinkedList<Button>> cll;
 
     @FXML
     private void onIniciarBtnClick() {
@@ -91,7 +77,15 @@ public class TableroController {
      */
     private void armarTablero() {
         tbl = new Tablero(lblTema.getText() + ".txt", dimensiones);
-        final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
+        cll = tbl.getTabla();
+        armarGP(cll);
+
+        /* debug */
+        tbl.mostrarTablero();
+    }
+
+    private void armarGP(List<CircularDoublyLinkedList<Button>> listCLL) {
+        tableroGP.getChildren().clear();
         for (int i = 0; i < listCLL.size(); i++) {
             for (int j = 0; j < listCLL.get(i).size(); j++) {
                 tableroGP.add(listCLL.get(i).get(j), i, j);
@@ -110,12 +104,18 @@ public class TableroController {
     private void onBtnDespIzqClick() {
         tbl.desplazar(desplazarCB.getValue(), 'i');
         System.out.println("Ha desplazado las filas hacia la izquierda.");
+        tbl.mostrarTablero();
+
+        armarGP(cll);
     }
 
     @FXML
     private void onBtnDespDerClick() {
         tbl.desplazar(desplazarCB.getValue(), 'd');
         System.out.println("Ha desplazado las filas hacia la derecha.");
+        tbl.mostrarTablero();
+
+        armarGP(cll);
     }
 
     @FXML
@@ -130,7 +130,7 @@ public class TableroController {
             }
 
             // actualizar tablero
-            System.out.println(tbl.getTabla().size());
+            tbl.mostrarTablero();
         } else {
             Util.err("No tiene mas comodines.", true);
         }
@@ -150,7 +150,7 @@ public class TableroController {
             }
 
             // actualizar tablero
-            System.out.println(tbl.getTabla().size());
+            tbl.mostrarTablero();
         } else {
             Util.err("Usted no tiene mas comodines", true);
         }

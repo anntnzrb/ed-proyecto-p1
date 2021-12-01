@@ -103,8 +103,8 @@ public class Tablero {
         }
 
         /* debug */
-        System.out.println("Lista de palabras por jugar");
-        System.out.println(listPalabrasValidas);
+        System.out.printf("Lista de palabras por jugar: %s\n",
+                          listPalabrasValidas);
     }
 
     /**
