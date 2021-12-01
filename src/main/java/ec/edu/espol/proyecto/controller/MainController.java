@@ -1,5 +1,6 @@
 package ec.edu.espol.proyecto.controller;
 
+import ec.edu.espol.proyecto.MainApp;
 import ec.edu.espol.proyecto.utils.Util;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -11,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 
 public class MainController {
     /**
@@ -31,6 +36,8 @@ public class MainController {
     private       ChoiceBox<String> numFilaCB;
     @FXML
     private       Button            btnJugar;
+    @FXML
+    private       TextField            txtNombre;
 
 
     @FXML
@@ -40,9 +47,17 @@ public class MainController {
                 "El jugador ha elegido un tablero de dimensiones: %dx%d\n",
                 dim,
                 dim);
-
+        
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("second.fxml"));
+        Parent parent = loader.load();
+        
+        TableroController tableroController = loader.getController();
+        tableroController.setNombre(txtNombre.getText());
+        tableroController.setDimension(getDimTablero());
+        
         stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
-        stage.setScene(Util.getNewScene("second"));
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -61,7 +76,8 @@ public class MainController {
     public int getDimTablero() {
         return Integer.parseInt(dimTableroCB.getValue().split("x")[0]);
     }
-
+    
+    
     @FXML
     public void initialize() {
         /* agregar las dimensiones al ChoiceBox */

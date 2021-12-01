@@ -27,7 +27,8 @@ public class TableroController {
     private Jugador jugador;
     private int     numErrores;
     private int     comodines;
-
+    private int     dimensiones;
+    
     @FXML
     private GridPane           tableroGP;
     @FXML
@@ -54,6 +55,7 @@ public class TableroController {
     private Label              lblNombreJug;
     @FXML
     private Button             btnRegresar;
+    
 
     @FXML
     private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
@@ -174,6 +176,16 @@ public class TableroController {
 
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
     }
+    
+    public void setNombre(String userName){
+        lblNombreJug.setText(userName);
+    }
+    
+    public void setDimension(int dim){
+        dimensiones = dim;
+    }
+
+    
 
     @FXML
     public void initialize() {
@@ -183,11 +195,12 @@ public class TableroController {
         comodines = 2;
 
         /* crear tablero */
+        System.out.println(dimensiones);
         tbl = new Tablero("animales" + ".txt", 6);
         armarTablero();
 
         /* crear Jugador */
-        jugador = new Jugador("Carlos");
+        jugador = new Jugador(lblNombreJug.getText());
         lblNombreJug.setText("Hola, " + jugador.getNickname());
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
         lblVidasJug.setText(String.valueOf(numErrores));
