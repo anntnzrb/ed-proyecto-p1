@@ -277,6 +277,8 @@ final public class TableroController {
 
             /* siempre se limpiará posterior a verificar */
             tbl.limpiarStrBld();
+
+
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
         }
