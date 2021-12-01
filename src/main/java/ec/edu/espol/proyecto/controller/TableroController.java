@@ -17,6 +17,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.ListView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class TableroController {
 
@@ -35,6 +41,8 @@ public class TableroController {
 
     @FXML
     private GridPane           tableroGP;
+    @FXML
+    private GridPane           grid;
     @FXML
     private ChoiceBox<String>  insercionesCB;
     @FXML
@@ -57,6 +65,8 @@ public class TableroController {
     private Button             btnDespDer;
     @FXML
     private Button             btnVerificar;
+    @FXML
+    private ListView           listView;
 
     @FXML
     private void onIniciarBtnClick() {
@@ -64,6 +74,10 @@ public class TableroController {
         crearJugador();
         setUp();
         activarBotones();
+        listView.setMaxSize(200, 160);
+            for(int i=0; i< tbl.getListPalabrasValidas().size(); i++){
+                listView.getItems().add(tbl.getListPalabrasValidas().get(i));
+            }
     }
 
     private void activarBotones() {
@@ -220,6 +234,8 @@ public class TableroController {
 
             /* siempre se limpiará posterior a verificar */
             tbl.limpiarStrBld();
+            
+            
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
         }
