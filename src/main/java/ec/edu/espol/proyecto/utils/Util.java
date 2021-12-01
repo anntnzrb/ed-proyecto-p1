@@ -20,6 +20,10 @@ public enum Util {
         return new Scene(loadFXML(fxml));
     }
 
+    public static FXMLLoader getFXMLLoader(final String fxml) {
+        return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
+    }
+
     /**
      * Busca y carga el archivo FXML.
      *
@@ -28,8 +32,7 @@ public enum Util {
      * @throws IOException arroja error si no se encuentra el archivo FXML
      */
     public static Parent loadFXML(final String fxml) throws IOException {
-        return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"))
-                .load();
+        return getFXMLLoader(fxml).load();
     }
 
     /* *************************************************************************

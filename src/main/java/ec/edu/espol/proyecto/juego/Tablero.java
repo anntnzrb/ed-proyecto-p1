@@ -10,22 +10,22 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class Tablero {
+final public class Tablero {
     /* juego */
     /* cantidad de palabras máximas a generar */
-    private static final int MAX_PALS_JUEGO = 14;
-    int                                         fil;
-    int                                         col;
+    private static final int                                         MAX_PALS_JUEGO = 14;
+    private final        int                                         fil;
+    private final        int                                         col;
+    /* colecciones */
+    private final        ArrayList<CircularDoublyLinkedList<Button>> tabla;
+    private final        List<String>                                listPalabras;
+    private final        List<String>                                listPalabrasValidas;
+    private final        List<Character>                             letras;
+    private final        StringBuilder                               strBld;
     /* cantidad de inserciones extras realizadas */
-    int                                         extraFils;
-    int                                         extraCols;
-    /*  */
-    StringBuilder                               strBld;
-    ArrayList<CircularDoublyLinkedList<Button>> tabla;
-    List<String>                                listPalabras;
-    List<String>                                listPalabrasValidas;
-    List<Character>                             letras;
-    private int puntaje;
+    private              int                                         extraFils;
+    private              int                                         extraCols;
+    private              int                                         puntaje;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
@@ -95,7 +95,10 @@ public class Tablero {
                 }
 
                 final Button btn = new Button(Character.toString(letras.get(num)));
-                btn.setOnAction(ev -> strBld.append(btn.getText()));
+                btn.setOnAction(ev -> {
+                    strBld.append(btn.getText());
+                    System.out.println(strBld);
+                });
                 cll.addLast(btn);
             }
 
@@ -181,9 +184,15 @@ public class Tablero {
         final CircularDoublyLinkedList<Button> newCLL =
                 new CircularDoublyLinkedList<>();
 
-        IntStream.range(0, size)
-                 .mapToObj(i -> new Button(Sistema.getRandomStringABC(true)))
-                 .forEachOrdered(newCLL::addLast);
+        for (int i = 0; i < size; ++i) {
+            final Button btn = new Button(Sistema.getRandomStringABC(true));
+            btn.setOnAction(ev -> {
+                strBld.append(btn.getText());
+                System.out.println(strBld);
+            });
+
+            newCLL.addLast(btn);
+        }
 
         return newCLL;
     }

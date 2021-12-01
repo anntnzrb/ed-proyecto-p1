@@ -1,10 +1,7 @@
 package ec.edu.espol.proyecto.juego;
 
-/**
- * @author Personal
- */
-public class Jugador {
-    private String nickname;
+final public class Jugador {
+    private final String nickname;
 
     public Jugador(final String nickname) {
         this.nickname = nickname;
@@ -12,9 +9,5 @@ public class Jugador {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 }

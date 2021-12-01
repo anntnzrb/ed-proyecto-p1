@@ -61,7 +61,7 @@
         </MenuBar>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
             <children>
-                <ImageView fitHeight="469.0" fitWidth="713.0" layoutX="32.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="31.9376220703125" AnchorPane.topAnchor="0.0">
+                <ImageView fitHeight="469.0" fitWidth="768.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <image>
                         <Image url="@fondo.png" />
                     </image>
@@ -79,13 +79,13 @@
                     <effect>
                         <DropShadow />
                     </effect>
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icon/btn-play.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
+                    <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icon/btn-play.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
                 </Button>
                 <ChoiceBox fx:id="temaCB" layoutX="456.0" layoutY="254.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="144.0" />
                 <Text layoutX="368.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema:">

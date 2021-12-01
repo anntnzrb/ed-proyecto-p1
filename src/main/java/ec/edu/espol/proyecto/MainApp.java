@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class MainApp extends Application {
+final public class MainApp extends Application {
 
     private static Scene scene;
 
@@ -18,17 +18,17 @@ public class MainApp extends Application {
     }
 
     @Override
-    public final void init() {
+    public void init() {
         System.out.println("Inicializando aplicación...");
     }
 
     @Override
-    public final void stop() {
+    public void stop() {
         System.out.println("Cerrando aplicación...");
     }
 
     @Override
-    public final void start(final Stage primaryStage) throws IOException {
+    public void start(final Stage primaryStage) throws IOException {
         scene = new Scene(Util.loadFXML("main"));
 
         /* ********************************************************************
@@ -39,7 +39,7 @@ public class MainApp extends Application {
         primaryStage.getIcons()
                     .add(new Image(Objects.requireNonNull(
                             MainApp.class
-                                    .getResourceAsStream("icon.png"))));
+                                    .getResourceAsStream("icon/icon.png"))));
         primaryStage.setScene(scene);
         primaryStage.show();
     }

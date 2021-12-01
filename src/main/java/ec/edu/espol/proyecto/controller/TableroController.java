@@ -12,112 +12,115 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
 
-public class TableroController {
-
-    private final String[] inserciones = {"fila", "columna"};
+final public class TableroController {
+    private final String[]                                    inserciones = {"fila", "columna"};
+    /* juego (sopa de letras) */
+    private       Tablero                                     tbl;
+    private       ArrayList<CircularDoublyLinkedList<Button>> tabla;
+    private       Jugador                                     jugador;
+    private       int                                         comodines;
+    private       int                                         dimensiones;
+    private       int                                         numErrores;
     /* JFX */
-    private       Stage    stage;
+    private       Stage                                       stage;
+    @FXML
+    private       GridPane                                    tableroGP;
+    @FXML
+    private       ChoiceBox<String>                           insercionesCB;
+    @FXML
+    private       ChoiceBox<Integer>                          desplazarCB;
+    @FXML
+    private       ListView<String>                            listView;
+    @FXML
+    private       Label                                       lblPuntajeJug;
+    @FXML
+    private       Label                                       lblVidasJug;
+    @FXML
+    private       Label                                       lblNombreJug;
+    @FXML
+    private       Label                                       lblTema;
+    @FXML
+    private       Button                                      btnIniciar;
+    @FXML
+    private       Button                                      btnInsertar;
+    @FXML
+    private       Button                                      btnEliminar;
+    @FXML
+    private       Button                                      btnDespIzq;
+    @FXML
+    private       Button                                      btnDespDer;
+    @FXML
+    private       Button                                      btnVerificar;
 
-    /* juego */
-    private Tablero tbl;
-    private Jugador jugador;
-    private int     numErrores;
-    private int     comodines;
-    private int     dimensiones;
-    /* sopa de letras */
-    ArrayList<CircularDoublyLinkedList<Button>> tabla;
+    public TableroController() {}
 
-    @FXML
-    private GridPane           tableroGP;
-    @FXML
-    private ChoiceBox<String>  insercionesCB;
-    @FXML
-    private ChoiceBox<Integer> desplazarCB;
-    @FXML
-    private Label              lblPuntajeJug;
-    @FXML
-    private Label              lblVidasJug;
-    @FXML
-    private Label              lblNombreJug;
-    @FXML
-    private Label              lblTema;
-    @FXML
-    private Button             btnInsertar;
-    @FXML
-    private Button             btnEliminar;
-    @FXML
-    private Button             btnDespIzq;
-    @FXML
-    private Button             btnDespDer;
-    @FXML
-    private Button             btnVerificar;
-
-    @FXML
-    private void onIniciarBtnClick() {
-        armarTablero();
-        crearJugador();
-        setUp();
-        activarBotones();
+    /* getters & setters */
+    public void setNombre(final String nombre) {
+        lblNombreJug.setText(nombre);
     }
 
-    private void activarBotones() {
-        btnInsertar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnDespIzq.setDisable(false);
-        btnDespDer.setDisable(false);
-        btnVerificar.setDisable(false);
+    public void setDimension(final int dim) {
+        dimensiones = dim;
     }
 
-    @FXML
-    private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
-        stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
-        stage.setScene(Util.getNewScene("main"));
-        stage.show();
+    public void setTema(final String tema) {
+        lblTema.setText(tema);
     }
 
+    /**
+     * Método encargado de establecer ciertos valores prederminados.
+     */
     private void setUp() {
         /* menu inserciones */
         insercionesCB.getItems().addAll(inserciones);
         insercionesCB.setValue(inserciones[0]);
 
+        listView.setMaxSize(200, 160);
+        for (int i = 0, palValSize = tbl.getListPalabrasValidas().size();
+             i < palValSize;
+             ++i) {
+            listView.getItems().add(tbl.getListPalabrasValidas().get(i));
+        }
+
         actualizarItems();
     }
 
-    private void actualizarItems() {
-        /* llenar CB con las filas del tablero */
-        desplazarCB.getItems().clear();
-        IntStream.range(0, tbl.getTabla().size())
-                 .forEach(desplazarCB.getItems()::add);
-        desplazarCB.setValue(0);
-    }
-
     /**
-     * Arma el tablero con valores aleatorios.
+     * Arma el tablero a partir de parámetros específicos.
      */
-    private void armarTablero() {
+    private void crearTablero() {
         tbl = new Tablero(lblTema.getText() + ".txt", dimensiones);
         tabla = tbl.getTabla();
-        armarGP(tabla);
+        armarTablero(tabla);
 
         /* debug */
         tbl.mostrarTablero();
     }
 
-    private void armarGP(List<CircularDoublyLinkedList<Button>> listCLL) {
+    /**
+     * Método encargado de crear & actualizar el {@link Tablero}
+     *
+     * @param tbl tablero a actualizar
+     */
+    private void armarTablero(List<CircularDoublyLinkedList<Button>> tbl) {
         tableroGP.getChildren().clear();
-        for (int i = 0; i < listCLL.size(); i++) {
-            for (int j = 0; j < listCLL.get(i).size(); j++) {
-                tableroGP.add(listCLL.get(i).get(j), j, i);
+        for (int i = 0; i < tbl.size(); i++) {
+            for (int j = 0; j < tbl.get(i).size(); j++) {
+                tableroGP.add(tbl.get(i).get(j), j, i);
             }
         }
     }
 
+    /**
+     * Método encargado de crear el {@link Jugador} del Tablero.
+     */
     private void crearJugador() {
         jugador = new Jugador(lblNombreJug.getText());
         lblNombreJug.setText(String.format("Hola, '%s'",
@@ -127,13 +130,68 @@ public class TableroController {
         lblTema.setText(String.format("Temática: '%s'", lblTema.getText()));
     }
 
+    /**
+     * Método que activa/desactiva ciertos controles del programa.
+     */
+    private void toggleControles() {
+        /* habilitar controles */
+        btnInsertar.setDisable(false);
+        btnEliminar.setDisable(false);
+        btnDespIzq.setDisable(false);
+        btnDespDer.setDisable(false);
+        btnVerificar.setDisable(false);
+        insercionesCB.setDisable(false);
+        desplazarCB.setDisable(false);
+    }
+
+    /**
+     * Actualiza items/controles del programa posterior a una operación.
+     */
+    private void actualizarItems() {
+        /* llenar CB con las filas del tablero */
+        desplazarCB.getItems().clear();
+        IntStream.range(0, tbl.getTabla().size())
+                 .forEach(desplazarCB.getItems()::add);
+        desplazarCB.setValue(0);
+    }
+
+    /**
+     * Actualiza los valores de los elementos gráficos.
+     *
+     * @param estado @{true} si se actualiza cuando el jugador ha ganado
+     */
+    private void actualizarJuego(final boolean estado) {
+        if (!estado) {
+            lblVidasJug.setText(String.valueOf(++numErrores));
+        }
+
+        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
+    }
+
+    @FXML
+    private void onIniciarBtnClick() {
+        crearTablero();
+        crearJugador();
+        setUp();
+        toggleControles();
+
+        btnIniciar.setDisable(true);
+    }
+
+    @FXML
+    private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
+        stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
+        stage.setScene(Util.getNewScene("main"));
+        stage.show();
+    }
+
     @FXML
     private void onBtnDespIzqClick() {
         tbl.desplazar(desplazarCB.getValue(), 'i');
         System.out.println("Ha desplazado las filas hacia la izquierda.");
         tbl.mostrarTablero();
 
-        armarGP(tabla);
+        armarTablero(tabla);
     }
 
     @FXML
@@ -142,7 +200,7 @@ public class TableroController {
         System.out.println("Ha desplazado las filas hacia la derecha.");
         tbl.mostrarTablero();
 
-        armarGP(tabla);
+        armarTablero(tabla);
     }
 
     @FXML
@@ -157,7 +215,7 @@ public class TableroController {
             }
 
             // actualizar tablero
-            armarGP(tabla);
+            armarTablero(tabla);
             actualizarItems();
             tbl.mostrarTablero();
         }
@@ -165,7 +223,6 @@ public class TableroController {
         --comodines;
 
         if (comodines == 0) {
-            Util.err("No tiene mas comodines.", true);
             btnInsertar.setDisable(true);
             btnEliminar.setDisable(true);
         }
@@ -183,7 +240,7 @@ public class TableroController {
             }
 
             // actualizar tablero
-            armarGP(tabla);
+            armarTablero(tabla);
             actualizarItems();
             tbl.mostrarTablero();
         }
@@ -191,7 +248,6 @@ public class TableroController {
         --comodines;
 
         if (comodines == 0) {
-            Util.err("Usted no tiene mas comodines", true);
             btnInsertar.setDisable(true);
             btnEliminar.setDisable(true);
         }
@@ -200,7 +256,7 @@ public class TableroController {
     @FXML
     private void onBtnVerificarClick() {
         if (numErrores < 3) {
-            final List<String> listPalabras = tbl.getListPalabras();
+            final List<String> listPalabras = tbl.getListPalabrasValidas();
             final String palabra = tbl.getPalabraVerif();
 
             if (listPalabras.contains(palabra)) {
@@ -211,7 +267,8 @@ public class TableroController {
                 /* actualizar */
                 actualizarJuego(true);
             } else {
-                Util.err("La palabra ingresada no es válida", true);
+                Util.err(String.format("La palabra '%s' no es válida", palabra),
+                         true);
                 tbl.setPuntaje(tbl.getPuntaje() - palabra.length());
 
                 /* actualizar */
@@ -223,31 +280,6 @@ public class TableroController {
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
         }
-    }
-
-    /**
-     * Actualiza los valores de los elementos gráficos.
-     *
-     * @param estado @{true} si se actualiza cuando el jugador ha ganado
-     */
-    private void actualizarJuego(final boolean estado) {
-        if (!estado) {
-            lblVidasJug.setText(String.valueOf(++numErrores));
-        }
-
-        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
-    }
-
-    public void setNombre(final String nombre) {
-        lblNombreJug.setText(nombre);
-    }
-
-    public void setDimension(final int dim) {
-        dimensiones = dim;
-    }
-
-    public void setTema(final String tema) {
-        lblTema.setText(tema);
     }
 
     @FXML
