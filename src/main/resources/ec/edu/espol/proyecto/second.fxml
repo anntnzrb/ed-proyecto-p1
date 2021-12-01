@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyecto.controller.TableroController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.proyecto.controller.TableroController">
     <children>
         <ImageView fitHeight="500.0" fitWidth="700.0" layoutY="-2.0" opacity="0.31" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -143,6 +143,11 @@
             </font>
         </Label>
         <Button fx:id="btnVerificar" layoutX="606.0" layoutY="21.0" mnemonicParsing="false" onAction="#onBtnVerificarClick" text="Verificar" />
-      <Label fx:id="lblDimensiones" layoutX="178.0" layoutY="415.0" text="x" />
+      <Button fx:id="btnIniciar" layoutX="596.0" layoutY="413.0" mnemonicParsing="false" onAction="#onIniciarBtnClick" text="Iniciar" />
+      <Label fx:id="lblTema" layoutX="422.0" layoutY="25.0" opacity="0.0" text="Tema">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
     </children>
 </Pane>

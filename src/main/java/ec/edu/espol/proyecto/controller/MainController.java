@@ -21,7 +21,7 @@ public class MainController {
     /**
      * arreglo con las posibles dimensiones del tablero
      */
-    private final String[]          dimsTablero = {"6x6", "7x7", "8x8", "9x9", "10x10"};
+    private final String[]          dimsTablero = {"8x8", "9x9", "10x10", "11x11", "12x12", "13x13", "14x14"};
     private final String[]          temas       =
             {"animales", "deportes", "frutas", "paises"};
     @FXML
@@ -54,7 +54,8 @@ public class MainController {
         TableroController tableroController = loader.getController();
         tableroController.setNombre(txtNombre.getText());
         tableroController.setDimension(getDimTablero());
-        
+        tableroController.setTema(getTema());
+
         stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
@@ -73,8 +74,12 @@ public class MainController {
      *
      * @return la dimensión del tablero
      */
-    public int getDimTablero() {
+    private int getDimTablero() {
         return Integer.parseInt(dimTableroCB.getValue().split("x")[0]);
+    }
+
+    private String getTema() {
+       return temaCB.getValue();
     }
     
     

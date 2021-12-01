@@ -28,7 +28,7 @@ public class TableroController {
     private int     numErrores;
     private int     comodines;
     private int     dimensiones;
-    
+
     @FXML
     private GridPane           tableroGP;
     @FXML
@@ -55,7 +55,18 @@ public class TableroController {
     private Label              lblNombreJug;
     @FXML
     private Button             btnRegresar;
-    
+    @FXML
+    private Button             btnIniciar;
+    @FXML
+    private Label              lblTema;
+
+
+    @FXML
+    private void onIniciarBtnClick() {
+        armarTablero();
+        crearJugador();
+        setUp();
+    }
 
     @FXML
     private void onRegresarBtnClick(final ActionEvent ae) throws IOException {
@@ -64,29 +75,47 @@ public class TableroController {
         stage.show();
     }
 
+    private void setUp() {
+        /* menu inserciones */
+        insercionesCB.getItems().addAll(inserciones);
+        insercionesCB.setValue(inserciones[0]);
+
+        /* llenar CB con las filas del tablero */
+        IntStream.range(0, tbl.getTabla().size())
+                 .forEach(desplazarCB.getItems()::add);
+        desplazarCB.setValue(0);
+    }
+
     /**
      * Arma el tablero con valores aleatorios.
      */
     private void armarTablero() {
+        tbl = new Tablero(lblTema.getText() + ".txt", dimensiones);
         final List<CircularDoublyLinkedList<Button>> listCLL = tbl.getTabla();
         for (int i = 0; i < listCLL.size(); i++) {
             for (int j = 0; j < listCLL.get(i).size(); j++) {
                 tableroGP.add(listCLL.get(i).get(j), i, j);
             }
         }
+    }
 
-        /* debug */
-        tbl.mostrarTablero();
+    private void crearJugador() {
+        jugador = new Jugador(lblNombreJug.getText());
+        lblNombreJug.setText("Hola, " + jugador.getNickname());
+        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
+        lblVidasJug.setText(String.valueOf(numErrores));
     }
 
     @FXML
     private void onBtnDespIzqClick() {
         tbl.desplazar(desplazarCB.getValue(), 'i');
+        System.out.println("Ha desplazado las filas hacia la izquierda.");
     }
 
     @FXML
     private void onBtnDespDerClick() {
         tbl.desplazar(desplazarCB.getValue(), 'd');
+        System.out.println("Ha desplazado las filas hacia la derecha.");
     }
 
     @FXML
@@ -99,9 +128,6 @@ public class TableroController {
                 tbl.addColumna();
                 Util.log("El jugador ha insertado una columna.");
             }
-
-            /* debug */
-            tbl.mostrarTablero();
 
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
@@ -122,9 +148,6 @@ public class TableroController {
                 tbl.removeColumna();
                 Util.log("El jugador ha eliminado una columna.");
             }
-
-            /* debug */
-            tbl.mostrarTablero();
 
             // actualizar tablero
             System.out.println(tbl.getTabla().size());
@@ -176,42 +199,23 @@ public class TableroController {
 
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
     }
-    
-    public void setNombre(String userName){
-        lblNombreJug.setText(userName);
+
+    public void setNombre(final String nombre) {
+        lblNombreJug.setText(nombre);
     }
-    
-    public void setDimension(int dim){
+
+    public void setDimension(final int dim) {
         dimensiones = dim;
     }
 
-    
+    public void setTema(final String tema) {
+        lblTema.setText(tema);
+    }
 
     @FXML
     public void initialize() {
-        /* juego */
         /* inicialmente el jugador tiene 2 comodines y 0 errores */
         numErrores = 0;
         comodines = 2;
-
-        /* crear tablero */
-        System.out.println(dimensiones);
-        tbl = new Tablero("animales" + ".txt", 6);
-        armarTablero();
-
-        /* crear Jugador */
-        jugador = new Jugador(lblNombreJug.getText());
-        lblNombreJug.setText("Hola, " + jugador.getNickname());
-        lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
-        lblVidasJug.setText(String.valueOf(numErrores));
-
-        /* menu inserciones */
-        insercionesCB.getItems().addAll(inserciones);
-        insercionesCB.setValue(inserciones[0]);
-
-        /* llenar CB con las filas del tablero */
-        IntStream.range(0, tbl.getTabla().size())
-                 .forEach(desplazarCB.getItems()::add);
-        desplazarCB.setValue(0);
     }
 }

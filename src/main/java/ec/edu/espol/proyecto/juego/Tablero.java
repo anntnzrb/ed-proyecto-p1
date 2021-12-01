@@ -101,6 +101,10 @@ public class Tablero {
             /* finalmente agregar la CLL con sus letras al tablero */
             tabla.addLast(cll);
         }
+
+        /* debug */
+        System.out.println("Lista de palabras por jugar");
+        System.out.println(listPalabrasValidas);
     }
 
     /**
@@ -213,5 +217,9 @@ public class Tablero {
 
     public List<String> getListPalabras() {
         return listPalabras;
+    }
+
+    public List<String> getListPalabrasValidas() {
+        return listPalabrasValidas;
     }
 }
