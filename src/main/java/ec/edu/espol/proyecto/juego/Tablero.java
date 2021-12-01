@@ -6,13 +6,14 @@ import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Sistema;
 import javafx.scene.control.Button;
 
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 public class Tablero {
     /* juego */
     /* cantidad de palabras máximas a generar */
-    private static final int MAX_PALS_JUEGO = 12;
+    private static final int MAX_PALS_JUEGO = 14;
     int                                         fil;
     int                                         col;
     /* cantidad de inserciones extras realizadas */
@@ -56,7 +57,7 @@ public class Tablero {
                                      .nextInt(0, listPalabras.size()));
 
             if (!listPalabrasValidas.contains(pal)) {
-                listPalabrasValidas.addLast(pal);
+                listPalabrasValidas.addLast(pal.toUpperCase(Locale.ROOT));
                 ++numPals;
             }
         }

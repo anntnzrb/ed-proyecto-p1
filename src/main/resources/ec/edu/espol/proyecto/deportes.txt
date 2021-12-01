@@ -7,3 +7,9 @@ ciclismo
 beisbol
 voleibol
 soccer
+hockey
+tenis
+karate
+atletismo
+boxeo
+baloncesto

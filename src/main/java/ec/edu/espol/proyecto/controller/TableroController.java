@@ -29,6 +29,8 @@ public class TableroController {
     private int     numErrores;
     private int     comodines;
     private int     dimensiones;
+    /* sopa de letras */
+    ArrayList<CircularDoublyLinkedList<Button>> tabla;
 
     @FXML
     private GridPane           tableroGP;
@@ -44,8 +46,6 @@ public class TableroController {
     private Label              lblNombreJug;
     @FXML
     private Label              lblTema;
-
-    ArrayList<CircularDoublyLinkedList<Button>> cll;
 
     @FXML
     private void onIniciarBtnClick() {
@@ -66,7 +66,12 @@ public class TableroController {
         insercionesCB.getItems().addAll(inserciones);
         insercionesCB.setValue(inserciones[0]);
 
+        actualizarItems();
+    }
+
+    private void actualizarItems() {
         /* llenar CB con las filas del tablero */
+        desplazarCB.getItems().clear();
         IntStream.range(0, tbl.getTabla().size())
                  .forEach(desplazarCB.getItems()::add);
         desplazarCB.setValue(0);
@@ -77,8 +82,8 @@ public class TableroController {
      */
     private void armarTablero() {
         tbl = new Tablero(lblTema.getText() + ".txt", dimensiones);
-        cll = tbl.getTabla();
-        armarGP(cll);
+        tabla = tbl.getTabla();
+        armarGP(tabla);
 
         /* debug */
         tbl.mostrarTablero();
@@ -88,7 +93,7 @@ public class TableroController {
         tableroGP.getChildren().clear();
         for (int i = 0; i < listCLL.size(); i++) {
             for (int j = 0; j < listCLL.get(i).size(); j++) {
-                tableroGP.add(listCLL.get(i).get(j), i, j);
+                tableroGP.add(listCLL.get(i).get(j), j, i);
             }
         }
     }
@@ -106,7 +111,7 @@ public class TableroController {
         System.out.println("Ha desplazado las filas hacia la izquierda.");
         tbl.mostrarTablero();
 
-        armarGP(cll);
+        armarGP(tabla);
     }
 
     @FXML
@@ -115,7 +120,7 @@ public class TableroController {
         System.out.println("Ha desplazado las filas hacia la derecha.");
         tbl.mostrarTablero();
 
-        armarGP(cll);
+        armarGP(tabla);
     }
 
     @FXML
@@ -130,6 +135,8 @@ public class TableroController {
             }
 
             // actualizar tablero
+            armarGP(tabla);
+            actualizarItems();
             tbl.mostrarTablero();
         } else {
             Util.err("No tiene mas comodines.", true);
@@ -150,6 +157,8 @@ public class TableroController {
             }
 
             // actualizar tablero
+            armarGP(tabla);
+            actualizarItems();
             tbl.mostrarTablero();
         } else {
             Util.err("Usted no tiene mas comodines", true);
