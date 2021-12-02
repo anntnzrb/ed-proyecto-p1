@@ -36,8 +36,8 @@ final public class TableroController {
     private int                                        dimensiones;
     private int                                        numErrores;
     private StringBuilder                              strBld;
-    private Queue<Letra>                               colaPalSeleccionadas;
     private int                                        clicks;
+    private Queue<Letra>                               colaPalSeleccionadas;
 
     /* JFX */
     private Stage              stage;
@@ -215,6 +215,14 @@ final public class TableroController {
         System.out.println(strBld);
     }
 
+    public void desMarcarLetra(final Letra letra) {
+        letra.setMarcado(false);
+        armarTablero();
+
+        /* debug */
+        System.out.println(strBld);
+    }
+
 
     /**
      * Método encargado de crear el {@link Jugador} del {@link Tablero}.
@@ -274,7 +282,12 @@ final public class TableroController {
                                                              .isMarcado());
 
         if (!isMarcado) {
-            tbl.desplazar(fil, lado);
+            cll.desplazarNodos(lado);
+            for (int i = 0, cllLen = cll.size(); i < cllLen; i++) {
+                final Letra letra = cll.get(i);
+                letra.setFil(fil);
+                letra.setCol(i);
+            }
         } else {
             Util.err("No puede mover filas con letras marcadas", true);
         }
@@ -389,13 +402,15 @@ final public class TableroController {
                          true);
                 tbl.setPuntaje(tbl.getPuntaje() - palabra.length());
 
+                //colaPalSeleccionadas.forEach(this::desMarcarLetra);
+
                 /* actualizar */
                 actualizarJuego(false);
             }
 
             /* siempre se limpiará posterior a verificar */
             limpiarStrBld();
-            colaPalSeleccionadas.clear();
+            //colaPalSeleccionadas.clear();
 
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);

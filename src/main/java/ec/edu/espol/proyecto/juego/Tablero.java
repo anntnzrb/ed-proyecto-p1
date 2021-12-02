@@ -93,13 +93,7 @@ final public class Tablero {
                     } while (indiceLetrasUsadas.contains(num));
                 }
 
-                Letra letra;
-                /* si es fila impar */
-                if ((j & 1) == 1) {
-                    letra = new Letra(letras.get(j), i, j);
-                } else {
-                    letra = new Letra(letras.get(num), i, j);
-                }
+                final Letra letra = new Letra(letras.get(num), i, j);
 
                 cll.addLast(letra);
             }
