@@ -4,7 +4,6 @@ import ec.edu.espol.proyecto.tda.ArrayList;
 import ec.edu.espol.proyecto.tda.CircularDoublyLinkedList;
 import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Sistema;
-import javafx.scene.control.Button;
 
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,19 +12,19 @@ import java.util.stream.IntStream;
 final public class Tablero {
     /* juego */
     /* cantidad de palabras máximas a generar */
-    private static final int                                         MAX_PALS_JUEGO = 14;
-    private final        int                                         fil;
-    private final        int                                         col;
+    private static final int                                        MAX_PALS_JUEGO = 14;
+    private final        int                                        fil;
+    private final        int                                        col;
     /* colecciones */
-    private final        ArrayList<CircularDoublyLinkedList<Button>> tabla;
-    private final        List<String>                                listPalabras;
-    private final        List<String>                                listPalabrasValidas;
-    private final        List<Character>                             letras;
-    private final        StringBuilder                               strBld;
+    private final        ArrayList<CircularDoublyLinkedList<Letra>> tabla;
+    private final        List<String>                               listPalabras;
+    private final        List<String>                               listPalabrasValidas;
+    private final        List<Character>                            letras;
+
     /* cantidad de inserciones extras realizadas */
-    private              int                                         extraFils;
-    private              int                                         extraCols;
-    private              int                                         puntaje;
+    private int extraFils;
+    private int extraCols;
+    private int puntaje;
 
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
@@ -36,9 +35,6 @@ final public class Tablero {
 
         /* modificaciones del tablero en 0 */
         extraFils = extraCols = 0;
-
-        /* StringBuilder que arma la palabra */
-        strBld = new StringBuilder();
 
         /* lista que contiene todas las palabras */
         listPalabras = Sistema.leerArchivo(archivo);
@@ -77,7 +73,7 @@ final public class Tablero {
         tabla = new ArrayList<>();
         for (int i = 0; i < fil; ++i) {
             /* crear una CLL por fila */
-            final CircularDoublyLinkedList<Button> cll =
+            final CircularDoublyLinkedList<Letra> cll =
                     new CircularDoublyLinkedList<>();
 
             for (int j = 0; j < fil; ++j) {
@@ -94,12 +90,8 @@ final public class Tablero {
                     } while (indiceLetrasUsadas.contains(num));
                 }
 
-                final Button btn = new Button(Character.toString(letras.get(num)));
-                btn.setOnAction(ev -> {
-                    strBld.append(btn.getText());
-                    System.out.println(strBld);
-                });
-                cll.addLast(btn);
+                final Letra letra = new Letra(letras.get(num), i, j);
+                cll.addLast(letra);
             }
 
             /* finalmente agregar la CLL con sus letras al tablero */
@@ -127,7 +119,7 @@ final public class Tablero {
      */
     public void addFila() {
         /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Button> newFilCLL =
+        final CircularDoublyLinkedList<Letra> newFilCLL =
                 genCLL(fil + extraCols);
 
         /* finalmente agregar la CLL con sus letras al tablero */
@@ -142,7 +134,7 @@ final public class Tablero {
      */
     public void addColumna() {
         /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Button> newColCLL =
+        final CircularDoublyLinkedList<Letra> newColCLL =
                 genCLL(fil + extraFils);
 
         /* iterator sobre el ArrayList */
@@ -180,18 +172,13 @@ final public class Tablero {
      *
      * @return una {@link CircularDoublyLinkedList}
      */
-    private CircularDoublyLinkedList<Button> genCLL(final int size) {
-        final CircularDoublyLinkedList<Button> newCLL =
+    private CircularDoublyLinkedList<Letra> genCLL(final int size) {
+        final CircularDoublyLinkedList<Letra> newCLL =
                 new CircularDoublyLinkedList<>();
 
         for (int i = 0; i < size; ++i) {
-            final Button btn = new Button(Sistema.getRandomStringABC(true));
-            btn.setOnAction(ev -> {
-                strBld.append(btn.getText());
-                System.out.println(strBld);
-            });
-
-            newCLL.addLast(btn);
+            final Letra letra = new Letra(Sistema.getRandomCharABC(true));
+            newCLL.addLast(letra);
         }
 
         return newCLL;
@@ -204,12 +191,8 @@ final public class Tablero {
         tabla.forEach(cll -> System.out.printf("%s\n", cll));
     }
 
-    public void limpiarStrBld() {
-        strBld.setLength(0);
-    }
-
     /* getters & setters */
-    public ArrayList<CircularDoublyLinkedList<Button>> getTabla() {
+    public ArrayList<CircularDoublyLinkedList<Letra>> getTabla() {
         return tabla;
     }
 
@@ -219,10 +202,6 @@ final public class Tablero {
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
-    }
-
-    public String getPalabraVerif() {
-        return strBld.toString();
     }
 
     public List<String> getListPalabras() {

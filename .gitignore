@@ -3,7 +3,7 @@
 *.iml
 
 # gradle
-gradlew*
+#gradlew*
 .gradle
 gradle
 build

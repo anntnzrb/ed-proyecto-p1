@@ -79,7 +79,7 @@ public enum Sistema {
      * @param isUpperCase si se desea el valor del caracter en mayúsculas
      * @return caracter del alfabeto inglés
      */
-    static char getRandomCharABC(final boolean isUpperCase) {
+    public static char getRandomCharABC(final boolean isUpperCase) {
         return isUpperCase
                ? (char) ThreadLocalRandom.current()
                                          .nextInt('A', 'Z' + 1)
