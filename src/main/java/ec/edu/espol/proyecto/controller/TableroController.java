@@ -22,7 +22,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Queue;
 import java.util.stream.IntStream;
 
 final public class TableroController {
@@ -35,8 +35,9 @@ final public class TableroController {
     private int                                        comodines;
     private int                                        dimensiones;
     private int                                        numErrores;
-    private StringBuilder                              strBld;
-    private Deque<Letra>                               listaLetrasSeleccionadas;
+    private StringBuilder strBld;
+    private Queue<Letra>  colaPalSeleccionadas;
+    private int           clicks;
 
     /* JFX */
     private Stage              stage;
@@ -75,30 +76,6 @@ final public class TableroController {
 
     /* constructor */
     public TableroController() {}
-
-    public static void ayudaUsuario(final Button btn) {
-        btn.setOnAction(ev -> {
-            final String mensaje =
-                    "1.Para iniciar el juego debes dar click en la opción Play.\n"
-                    + "2.Una vez seleccionado Play se habilitara el juego "
-                    + "y tendras a tu disposicion la sopa de letras en donde deberas encontrar las palabras mostradas en la lista de la parte inferior.\n"
-                    + "3.Ahora deberas dar click en cada uno de los botones que conforman la palabra y una vez hecho esto procedemos a presionar el boton con un visto el cual verificara la palabra seleccionada, si acertaste se te iran sumando puntos acorde a la longitud de la palabra formada"
-                    + ", de igual forma si te equivocas al seleccionar una palabra se te restaran puntos acorde a la longitud de tu palabra errada teniendo en cuenta que tienes un maximo de 3 vidas para continuar con la partida"
-                    + ".\n"
-                    + "4. Si deseas agregar mas filas y columnas pudes hacerlo con un maximo de 2 oportunidades con el fin de encontrar mas palabras."
-                    + "\n"
-                    + "5. Ahora bien, si deseas desplazar las letras de izquierda a derecha o viceversa para encontrar una palabra lo puedes hacer con los botones desplazar izquierda"
-                    + "y derecha sin limite de oportunidades a fin de poner a prueba tu creatividad de encontrar y armar palabras.\n"
-                    + "6. Si te aburriste y deseas cambiar de tema de juego puedes hacerlo en cualquier momento, tan solo necesitas dar click en regresar y volveras a iniciar nuevamente el juego.\n "
-                    + "!Que esperas empecemos el Juego!";
-            final Alert dialogo = new Alert(Alert.AlertType.INFORMATION);
-            dialogo.setTitle("Instrucciones");
-            dialogo.setHeaderText("Instrucciones");
-            dialogo.setContentText(mensaje);
-            dialogo.initStyle(StageStyle.UTILITY);
-            dialogo.showAndWait();
-        });
-    }
 
     /* getters & setters */
     public void setNombre(final String nombre) {
@@ -178,12 +155,12 @@ final public class TableroController {
                 stackPane.setAlignment(Pos.CENTER);
                 if (letra.isMarcado()) {
                     stackPane.setBackground(new Background(new BackgroundFill(
-                            Color.BLACK,
+                            Color.YELLOW,
                             new CornerRadii(0),
                             new Insets(0))));
                 }
 
-                stackPane.setOnMouseClicked(ev -> marcarLetra(letra));
+                stackPane.setOnMouseClicked(ev -> checkMov(letra));
 
                 /* agregar letras al GridPane */
                 GridPane.setMargin(stackPane, new Insets(0, 4, 0, 4));
@@ -197,39 +174,46 @@ final public class TableroController {
      *
      * @param letra letra a marcar
      */
-    public void marcarLetra(final Letra letra) {
+    public void checkMov(final Letra letra) {
         if (numErrores == 3) {
             return;
         }
 
-        listaLetrasSeleccionadas.push(letra);
-        System.out.println(listaLetrasSeleccionadas);
+        ++clicks;
+        if (clicks == 1) {
+            marcarLetra(letra);
+            colaPalSeleccionadas.offer(letra);
+        }
 
-        if (checkMov(letra, listaLetrasSeleccionadas.pop())) {
-            letra.setMarcado(true);
-            armarTablero();
-
-            strBld.append(letra.getContenido());
-
-            /* debug */
-            System.out.println(strBld);
+        if (clicks > 1) {
+            final Letra letraVieja = colaPalSeleccionadas.peek();
+            final boolean isMovValido = Tablero.isVecino(letra, letraVieja);
+            System.out.printf("Comparando -> %s: (%d, %d) | %s: (%d, %d) -> Válido: %b\n",
+                              letra,
+                              letra.getFil(),
+                              letra.getCol(),
+                              letraVieja,
+                              letraVieja.getFil(),
+                              letraVieja.getCol(),
+                              isMovValido);
+            if (isMovValido) {
+                colaPalSeleccionadas.poll();
+                marcarLetra(letra);
+                colaPalSeleccionadas.offer(letra);
+            }
         }
     }
 
-    public boolean checkMov(final Letra letra1, final Letra letra2) {
-        final int x1 = letra1.getFil();
-        final int x2 = letra2.getFil();
-        final int y1 = letra1.getCol();
-        final int y2 = letra2.getCol();
+    public void marcarLetra(final Letra letra) {
+        letra.setMarcado(true);
+        armarTablero();
 
-        System.out.printf("Letra 1: (%d, %d)\n", x1, y1);
-        System.out.printf("Letra 2: (%d, %d)\n", x2, y2);
+        strBld.append(letra.getContenido());
 
-        return (x1 - 1) == x2
-               || (x1 + 1) == x2
-               || (y1 - 1) == y2
-               || (y1 + 1) == y2;
+        /* debug */
+        System.out.println(strBld);
     }
+
 
     /**
      * Método encargado de crear el {@link Jugador} del {@link Tablero}.
@@ -287,9 +271,7 @@ final public class TableroController {
         crearJugador();
         setUp();
         toggleControles();
-        ayudaUsuario(btnAyuda);
         btnIniciar.setDisable(true);
-
     }
 
     @FXML
@@ -398,7 +380,7 @@ final public class TableroController {
 
             /* siempre se limpiará posterior a verificar */
             limpiarStrBld();
-            listaLetrasSeleccionadas.clear();
+            colaPalSeleccionadas.clear();
 
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
@@ -418,10 +400,34 @@ final public class TableroController {
     }
 
     @FXML
+    public void onBtnAyudaClick() {
+        final String mensaje =
+                "1.Para iniciar el juego debes dar click en la opción Play.\n"
+                + "2.Una vez seleccionado Play se habilitara el juego "
+                + "y tendras a tu disposicion la sopa de letras en donde deberas encontrar las palabras mostradas en la lista de la parte inferior.\n"
+                + "3.Ahora deberas dar click en cada uno de los botones que conforman la palabra y una vez hecho esto procedemos a presionar el boton con un visto el cual verificara la palabra seleccionada, si acertaste se te iran sumando puntos acorde a la longitud de la palabra formada"
+                + ", de igual forma si te equivocas al seleccionar una palabra se te restaran puntos acorde a la longitud de tu palabra errada teniendo en cuenta que tienes un maximo de 3 vidas para continuar con la partida"
+                + ".\n"
+                + "4. Si deseas agregar mas filas y columnas pudes hacerlo con un maximo de 2 oportunidades con el fin de encontrar mas palabras."
+                + "\n"
+                + "5. Ahora bien, si deseas desplazar las letras de izquierda a derecha o viceversa para encontrar una palabra lo puedes hacer con los botones desplazar izquierda"
+                + "y derecha sin limite de oportunidades a fin de poner a prueba tu creatividad de encontrar y armar palabras.\n"
+                + "6. Si te aburriste y deseas cambiar de tema de juego puedes hacerlo en cualquier momento, tan solo necesitas dar click en regresar y volveras a iniciar nuevamente el juego.\n "
+                + "!Que esperas empecemos el Juego!";
+        final Alert dialogo = new Alert(Alert.AlertType.INFORMATION);
+        dialogo.setTitle("Instrucciones");
+        dialogo.setHeaderText("Instrucciones");
+        dialogo.setContentText(mensaje);
+        dialogo.initStyle(StageStyle.UTILITY);
+        dialogo.showAndWait();
+    }
+
+    @FXML
     public void initialize() {
         /* inicialmente el jugador tiene 2 comodines y 0 errores */
         numErrores = 0;
         comodines = 2;
-        listaLetrasSeleccionadas = new ArrayDeque<>();
+        clicks = 0;
+        colaPalSeleccionadas = new ArrayDeque<>();
     }
 }

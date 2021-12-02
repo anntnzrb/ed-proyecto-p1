@@ -50,6 +50,20 @@ final public class Letra {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final Letra letra = (Letra) o;
+        return fil == letra.fil && col == letra.col;
+    }
+
+    @Override
     public String toString() {
         return Character.toString(contenido);
     }

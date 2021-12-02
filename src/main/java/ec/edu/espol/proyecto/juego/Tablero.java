@@ -198,6 +198,27 @@ final public class Tablero {
         tabla.forEach(cll -> System.out.printf("%s\n", cll));
     }
 
+    public static boolean isVecino(final Letra letra1, final Letra letra2) {
+        final int x1 = letra1.getFil();
+        final int x2 = letra2.getFil();
+        final int y1 = letra1.getCol();
+        final int y2 = letra2.getCol();
+
+        final boolean checkIzquierda = x1 == x2 && (y2 - 1) == y1;
+        final boolean checkDerecha = x1 == x2 && (y2 + 1) == y1;
+        final boolean checkArriba = y1 == y2 && (x2 - 1) == x1;
+        final boolean checkAbajo = y1 == y2 && (x2 + 1) == x1;
+
+        if (letra1.equals(letra2)) {
+            return false;
+        }
+
+        return checkIzquierda
+               || checkDerecha
+               || checkArriba
+               || checkAbajo;
+    }
+
     /* getters & setters */
     public ArrayList<CircularDoublyLinkedList<Letra>> getTabla() {
         return tabla;
