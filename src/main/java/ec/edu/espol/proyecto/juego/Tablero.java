@@ -6,7 +6,6 @@ import ec.edu.espol.proyecto.tda.List;
 import ec.edu.espol.proyecto.utils.Sistema;
 
 import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 final public class Tablero {
@@ -28,6 +27,7 @@ final public class Tablero {
     private int extraCols;
     private int puntaje;
 
+    /* constructor */
     public Tablero(final String archivo, final int dimension) {
         fil = dimension;
         col = 1; // siempre es 1 (ya que es una CLL por fila)
@@ -54,8 +54,7 @@ final public class Tablero {
         int numPals = 0;
         while (numPals < MAX_PALS_JUEGO) {
             final String pal = listPalabras.get(
-                    ThreadLocalRandom.current()
-                                     .nextInt(0, listPalabras.size()));
+                    Sistema.getRandomInt(0, listPalabras.size()));
 
             if (!listPalabrasValidas.contains(pal)) {
                 listPalabrasValidas.addLast(pal.toUpperCase(Locale.ROOT));
@@ -83,19 +82,25 @@ final public class Tablero {
 
             for (int j = 0; j < fil; ++j) {
                 /* obtener índice random */
-                int num = ThreadLocalRandom.current().nextInt(0, letras.size());
+                int num = Sistema.getRandomInt(letras.size());
                 /* si el índice no está en la colección, agregarlo */
                 if (!indiceLetrasUsadas.contains(num)) {
                     indiceLetrasUsadas.addLast(num);
                     /* si está presente, obtener mas randoms hasta que no esté */
                 } else {
                     do {
-                        num = ThreadLocalRandom.current()
-                                               .nextInt(0, letras.size());
+                        num = Sistema.getRandomInt(letras.size());
                     } while (indiceLetrasUsadas.contains(num));
                 }
 
-                final Letra letra = new Letra(letras.get(num), i, j);
+                Letra letra;
+                /* si es fila impar */
+                if ((j & 1) == 1) {
+                    letra = new Letra(letras.get(j), i, j);
+                } else {
+                    letra = new Letra(letras.get(num), i, j);
+                }
+
                 cll.addLast(letra);
             }
 
@@ -106,6 +111,35 @@ final public class Tablero {
         /* debug */
         System.out.printf("Lista de palabras por jugar: %s\n",
                           listPalabrasValidas);
+    }
+
+    /**
+     * Verifica que las dos letras pasadas por parámetro sean vecinas.
+     *
+     * @param letra1 Letra 1 a verificar
+     * @param letra2 Letra 2 a verificar
+     * @return {@code true} si son vecinas
+     */
+    public static boolean isVecino(final Letra letra1, final Letra letra2) {
+        final int x1 = letra1.getFil();
+        final int x2 = letra2.getFil();
+        final int y1 = letra1.getCol();
+        final int y2 = letra2.getCol();
+
+        final boolean checkIzquierda = x1 == x2 && (y2 - 1) == y1;
+        final boolean checkDerecha = x1 == x2 && (y2 + 1) == y1;
+        final boolean checkArriba = y1 == y2 && (x2 - 1) == x1;
+        final boolean checkAbajo = y1 == y2 && (x2 + 1) == x1;
+
+        /* si es la misma letra */
+        if (letra1.equals(letra2)) {
+            return false;
+        }
+
+        return checkIzquierda
+               || checkDerecha
+               || checkArriba
+               || checkAbajo;
     }
 
     /**
@@ -218,28 +252,6 @@ final public class Tablero {
      */
     public void mostrarTablero() {
         tabla.forEach(cll -> System.out.printf("%s\n", cll));
-    }
-
-    public static boolean isVecino(final Letra letra1, final Letra letra2) {
-        final int x1 = letra1.getFil();
-        final int x2 = letra2.getFil();
-        final int y1 = letra1.getCol();
-        final int y2 = letra2.getCol();
-
-        final boolean checkIzquierda = x1 == x2 && (y2 - 1) == y1;
-        final boolean checkDerecha = x1 == x2 && (y2 + 1) == y1;
-        final boolean checkArriba = y1 == y2 && (x2 - 1) == x1;
-        final boolean checkAbajo = y1 == y2 && (x2 + 1) == x1;
-
-        /* si es la misma letra */
-        if (letra1.equals(letra2)) {
-            return false;
-        }
-
-        return checkIzquierda
-               || checkDerecha
-               || checkArriba
-               || checkAbajo;
     }
 
     /* getters & setters */

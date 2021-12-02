@@ -44,6 +44,24 @@ public enum Sistema {
     }
 
     /**
+     * Retorna un número aleatorio del rango especificado.
+     *
+     * @param minv valor mínimo
+     * @param maxv valor máximo
+     * @return entero aleatorio dentro del rango
+     */
+    public static int getRandomInt(final int minv, final int maxv) {
+        return ThreadLocalRandom.current().nextInt(minv, maxv);
+    }
+
+    /**
+     * Wrapper de {@link #getRandomInt(int, int)}
+     */
+    public static int getRandomInt(final int maxv) {
+        return getRandomInt(0, maxv);
+    }
+
+    /**
      * Retorna un String random de una colección que contiene elementos
      * procesados de la lectura de un archivo pasada por parámetro.
      *
@@ -55,8 +73,7 @@ public enum Sistema {
         final List<String> listPalabras = leerArchivo(archivo);
 
         return Objects.requireNonNull(listPalabras)
-                      .get(ThreadLocalRandom.current()
-                                            .nextInt(listPalabras.size()));
+                      .get(getRandomInt(listPalabras.size()));
     }
 
     /**
@@ -67,8 +84,7 @@ public enum Sistema {
      */
     @Deprecated
     public static char obtenerCharPalabra(final String palabra) {
-        return palabra.charAt(ThreadLocalRandom.current()
-                                               .nextInt(palabra.length()));
+        return palabra.charAt(getRandomInt((palabra.length())));
     }
 
     /**
@@ -83,10 +99,8 @@ public enum Sistema {
      */
     public static char getRandomCharABC(final boolean isUpperCase) {
         return isUpperCase
-               ? (char) ThreadLocalRandom.current()
-                                         .nextInt('A', 'Z' + 1)
-               : (char) ThreadLocalRandom.current()
-                                         .nextInt('a', 'z' + 1);
+               ? (char) getRandomInt('A', 'Z' + 1)
+               : (char) getRandomInt('a', 'z' + 1);
     }
 
     /**
@@ -132,7 +146,7 @@ public enum Sistema {
         final int xsSize = xs.size();
         for (int i = 0; i < xsSize; i++) {
             final int change =
-                    i + ThreadLocalRandom.current().nextInt(xsSize - i);
+                    i + getRandomInt(xsSize - i);
             swap(xs, i, change);
         }
     }
