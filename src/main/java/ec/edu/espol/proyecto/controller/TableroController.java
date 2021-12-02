@@ -35,9 +35,9 @@ final public class TableroController {
     private int                                        comodines;
     private int                                        dimensiones;
     private int                                        numErrores;
-    private StringBuilder strBld;
-    private Queue<Letra>  colaPalSeleccionadas;
-    private int           clicks;
+    private StringBuilder                              strBld;
+    private Queue<Letra>                               colaPalSeleccionadas;
+    private int                                        clicks;
 
     /* JFX */
     private Stage              stage;
@@ -71,8 +71,6 @@ final public class TableroController {
     private Button             btnDespDer;
     @FXML
     private Button             btnVerificar;
-    @FXML
-    private Button             btnAyuda;
 
     /* constructor */
     public TableroController() {}
@@ -188,14 +186,15 @@ final public class TableroController {
         if (clicks > 1) {
             final Letra letraVieja = colaPalSeleccionadas.peek();
             final boolean isMovValido = Tablero.isVecino(letra, letraVieja);
-            System.out.printf("Comparando -> %s: (%d, %d) | %s: (%d, %d) -> Válido: %b\n",
-                              letra,
-                              letra.getFil(),
-                              letra.getCol(),
-                              letraVieja,
-                              letraVieja.getFil(),
-                              letraVieja.getCol(),
-                              isMovValido);
+            System.out.printf(
+                    "Comparando -> %s: (%d, %d) | %s: (%d, %d) -> Válido: %b\n",
+                    letra,
+                    letra.getFil(),
+                    letra.getCol(),
+                    letraVieja,
+                    letraVieja.getFil(),
+                    letraVieja.getCol(),
+                    isMovValido);
             if (isMovValido) {
                 colaPalSeleccionadas.poll();
                 marcarLetra(letra);
@@ -265,6 +264,26 @@ final public class TableroController {
         lblPuntajeJug.setText(String.valueOf(tbl.getPuntaje()));
     }
 
+    public void desplazarFil(final int fil, final char lado) {
+        final CircularDoublyLinkedList<Letra> cll = tabla.get(fil);
+
+        final boolean isMarcado = IntStream.range(0, cll.size())
+                                           .anyMatch(i -> cll.get(i)
+                                                             .isMarcado());
+
+        if (!isMarcado) {
+            cll.desplazarNodos(lado);
+
+            for (int i = 0, cllLen = cll.size(); i < cllLen; i++) {
+                final Letra letra = cll.get(i);
+                letra.setFil(fil);
+                letra.setCol(i);
+            }
+        } else {
+            Util.err("No puede mover filas con letras marcadas", true);
+        }
+    }
+
     @FXML
     private void onIniciarBtnClick() {
         crearTablero();
@@ -283,7 +302,7 @@ final public class TableroController {
 
     @FXML
     private void onBtnDespIzqClick() {
-        tbl.desplazar(desplazarCB.getValue(), 'i');
+        desplazarFil(desplazarCB.getValue(), 'i');
         System.out.println("Ha desplazado las filas hacia la izquierda.");
         tbl.mostrarTablero();
 
@@ -292,7 +311,7 @@ final public class TableroController {
 
     @FXML
     private void onBtnDespDerClick() {
-        tbl.desplazar(desplazarCB.getValue(), 'd');
+        desplazarFil(desplazarCB.getValue(), 'd');
         System.out.println("Ha desplazado las filas hacia la derecha.");
         tbl.mostrarTablero();
 

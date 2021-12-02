@@ -171,10 +171,5 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Label fx:id="lblPresionar" layoutX="507.0" layoutY="482.0" prefHeight="35.0" prefWidth="215.0" text="Presiona aquí para empezar -&gt;">
-            <font>
-                <Font name="Elephant" size="14.0" />
-            </font>
-        </Label>
     </children>
 </Pane>
