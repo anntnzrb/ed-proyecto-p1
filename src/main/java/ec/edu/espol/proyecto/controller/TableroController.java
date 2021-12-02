@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 final public class TableroController {
     private final String[]                                    inserciones = {"fila", "columna"};
@@ -47,6 +50,8 @@ final public class TableroController {
     @FXML
     private       Label                                       lblTema;
     @FXML
+    private       Label                                       lblPresionar;
+    @FXML
     private       Button                                      btnIniciar;
     @FXML
     private       Button                                      btnInsertar;
@@ -58,6 +63,8 @@ final public class TableroController {
     private       Button                                      btnDespDer;
     @FXML
     private       Button                                      btnVerificar;
+    @FXML
+    private       Button                                      btnAyuda;
 
     public TableroController() {}
 
@@ -174,8 +181,35 @@ final public class TableroController {
         crearJugador();
         setUp();
         toggleControles();
-
+        AyudaUsuario(btnAyuda);
         btnIniciar.setDisable(true);
+        
+    }
+    
+    public static void AyudaUsuario(Button ayuda) {
+        ayuda.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String mensaje = 
+                        "1.Para iniciar el juego debes dar click en la opción Play.\n"
+                        +"2.Una vez seleccionado Play se habilitara el juego "
+                        + "y tendras a tu disposicion la sopa de letras en donde deberas encontrar las palabras mostradas en la lista de la parte inferior.\n" 
+                        + "3.Ahora deberas dar click en cada uno de los botones que conforman la palabra y una vez hecho esto procedemos a presionar el boton con un visto el cual verificara la palabra seleccionada, si acertaste se te iran sumando puntos acorde a la longitud de la palabra formada"
+                        + ", de igual forma si te equivocas al seleccionar una palabra se te restaran puntos acorde a la longitud de tu palabra errada teniendo en cuenta que tienes un maximo de 3 vidas para continuar con la partida"
+                        + ".\n" + "4. Si deseas agregar mas filas y columnas pudes hacerlo con un maximo de 2 oportunidades con el fin de encontrar mas palabras."
+                        + "\n"
+                        + "5. Ahora bien, si deseas desplazar las letras de izquierda a derecha o viceversa para encontrar una palabra lo puedes hacer con los botones desplazar izquierda"
+                        + "y derecha sin limite de oportunidades a fin de poner a prueba tu creatividad de encontrar y armar palabras.\n" 
+                        +"6. Si te aburriste y deseas cambiar de tema de juego puedes hacerlo en cualquier momento, tan solo necesitas dar click en regresar y volveras a iniciar nuevamente el juego.\n "
+                        + "!Que esperas empecemos el Juego!";
+                Alert dialogo = new Alert(Alert.AlertType.INFORMATION);
+                dialogo.setTitle("Instrucciones");
+                dialogo.setHeaderText("Instrucciones");
+                dialogo.setContentText(mensaje);
+                dialogo.initStyle(StageStyle.UTILITY);
+                dialogo.showAndWait();
+            }
+        });
     }
 
     @FXML
