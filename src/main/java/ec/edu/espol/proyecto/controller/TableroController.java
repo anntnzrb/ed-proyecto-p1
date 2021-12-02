@@ -272,13 +272,7 @@ final public class TableroController {
                                                              .isMarcado());
 
         if (!isMarcado) {
-            cll.desplazarNodos(lado);
-
-            for (int i = 0, cllLen = cll.size(); i < cllLen; i++) {
-                final Letra letra = cll.get(i);
-                letra.setFil(fil);
-                letra.setCol(i);
-            }
+            tbl.desplazar(fil, lado);
         } else {
             Util.err("No puede mover filas con letras marcadas", true);
         }

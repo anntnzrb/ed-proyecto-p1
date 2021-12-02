@@ -115,7 +115,15 @@ final public class Tablero {
      * @param lado dirección a desplazar (izquierda o derecha)
      */
     public void desplazar(final int idx, final char lado) {
+        final CircularDoublyLinkedList<Letra> cll = tabla.get(fil);
+
         tabla.get(idx).desplazarNodos(lado);
+
+        for (int i = 0, cllLen = cll.size(); i < cllLen; i++) {
+            final Letra letra = cll.get(i);
+            letra.setFil(fil);
+            letra.setCol(i);
+        }
     }
 
     /**
@@ -124,8 +132,16 @@ final public class Tablero {
      */
     public void addFila() {
         /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Letra> newFilCLL =
-                genCLL(fil + extraCols);
+        //final CircularDoublyLinkedList<Letra> newFilCLL =
+        //        genCLL(fil + extraCols);
+
+        final CircularDoublyLinkedList<Letra> newFilCLL = new CircularDoublyLinkedList<>();
+        for (int i = 0; i < fil + extraFils; ++i) {
+            final Letra letra = new Letra(Sistema.getRandomCharABC(true),
+                                          fil + extraFils,
+                                          i);
+            newFilCLL.addLast(letra);
+        }
 
         /* finalmente agregar la CLL con sus letras al tablero */
         tabla.addLast(newFilCLL);
@@ -138,9 +154,17 @@ final public class Tablero {
      * cada CLL del arreglo que las contiene.
      */
     public void addColumna() {
-        /* recordar que una fila es una CLL */
-        final CircularDoublyLinkedList<Letra> newColCLL =
-                genCLL(fil + extraFils);
+        ///* recordar que una fila es una CLL */
+        //final CircularDoublyLinkedList<Letra> newColCLL =
+        //        genCLL(fil + extraFils);
+        final CircularDoublyLinkedList<Letra> newColCLL = new CircularDoublyLinkedList<>();
+
+        for (int i = 0; i < fil + extraFils; ++i) {
+            final Letra letra = new Letra(Sistema.getRandomCharABC(true),
+                                          i, tabla.get(i).size());
+
+            newColCLL.addLast(letra);
+        }
 
         /* iterator sobre el ArrayList */
         IntStream.range(0, fil + extraFils)
@@ -177,14 +201,15 @@ final public class Tablero {
      *
      * @return una {@link CircularDoublyLinkedList}
      */
+    @Deprecated
     private CircularDoublyLinkedList<Letra> genCLL(final int size) {
         final CircularDoublyLinkedList<Letra> newCLL =
                 new CircularDoublyLinkedList<>();
 
         for (int i = 0; i < size; ++i) {
             final Letra letra = new Letra(Sistema.getRandomCharABC(true),
-                                          i + size,
-                                          i + size);
+                                          fil + extraCols,
+                                          fil + extraFils);
             newCLL.addLast(letra);
         }
 
