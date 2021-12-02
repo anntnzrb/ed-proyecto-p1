@@ -21,18 +21,22 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.stream.IntStream;
 
 final public class TableroController {
-    private final String[]                                   inserciones = {"fila", "columna"};
+    private final String[] inserciones = {"fila", "columna"};
+
     /* juego (sopa de letras) */
-    private       Tablero                                    tbl;
-    private       ArrayList<CircularDoublyLinkedList<Letra>> tabla;
-    private       Jugador                                    jugador;
-    private       int                                        comodines;
-    private       int                                        dimensiones;
-    private       int                                        numErrores;
-    private       StringBuilder                              strBld;
+    private Tablero                                    tbl;
+    private ArrayList<CircularDoublyLinkedList<Letra>> tabla;
+    private Jugador                                    jugador;
+    private int                                        comodines;
+    private int                                        dimensiones;
+    private int                                        numErrores;
+    private StringBuilder                              strBld;
+    private Deque<Letra>                               listaLetrasSeleccionadas;
 
     /* JFX */
     private Stage              stage;
@@ -178,6 +182,7 @@ final public class TableroController {
                             new CornerRadii(0),
                             new Insets(0))));
                 }
+
                 stackPane.setOnMouseClicked(ev -> marcarLetra(letra));
 
                 /* agregar letras al GridPane */
@@ -188,12 +193,19 @@ final public class TableroController {
     }
 
     /**
-     * Marca una letra del @{@link Tablero}.
+     * Marca una letra del {@link Tablero}.
      *
      * @param letra letra a marcar
      */
     public void marcarLetra(final Letra letra) {
-        if (numErrores < 3) {
+        if (numErrores == 3) {
+            return;
+        }
+
+        listaLetrasSeleccionadas.push(letra);
+        System.out.println(listaLetrasSeleccionadas);
+
+        if (checkMov(letra, listaLetrasSeleccionadas.pop())) {
             letra.setMarcado(true);
             armarTablero();
 
@@ -204,8 +216,23 @@ final public class TableroController {
         }
     }
 
+    public boolean checkMov(final Letra letra1, final Letra letra2) {
+        final int x1 = letra1.getFil();
+        final int x2 = letra2.getFil();
+        final int y1 = letra1.getCol();
+        final int y2 = letra2.getCol();
+
+        System.out.printf("Letra 1: (%d, %d)\n", x1, y1);
+        System.out.printf("Letra 2: (%d, %d)\n", x2, y2);
+
+        return (x1 - 1) == x2
+               || (x1 + 1) == x2
+               || (y1 - 1) == y2
+               || (y1 + 1) == y2;
+    }
+
     /**
-     * Método encargado de crear el {@link Jugador} del @{@link Tablero}.
+     * Método encargado de crear el {@link Jugador} del {@link Tablero}.
      */
     private void crearJugador() {
         jugador = new Jugador(lblNombreJug.getText());
@@ -371,6 +398,7 @@ final public class TableroController {
 
             /* siempre se limpiará posterior a verificar */
             limpiarStrBld();
+            listaLetrasSeleccionadas.clear();
 
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
@@ -394,5 +422,6 @@ final public class TableroController {
         /* inicialmente el jugador tiene 2 comodines y 0 errores */
         numErrores = 0;
         comodines = 2;
+        listaLetrasSeleccionadas = new ArrayDeque<>();
     }
 }

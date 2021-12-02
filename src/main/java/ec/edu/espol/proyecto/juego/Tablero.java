@@ -182,7 +182,9 @@ final public class Tablero {
                 new CircularDoublyLinkedList<>();
 
         for (int i = 0; i < size; ++i) {
-            final Letra letra = new Letra(Sistema.getRandomCharABC(true));
+            final Letra letra = new Letra(Sistema.getRandomCharABC(true),
+                                          i + size,
+                                          i + size);
             newCLL.addLast(letra);
         }
 
