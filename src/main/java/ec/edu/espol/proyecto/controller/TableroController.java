@@ -185,7 +185,9 @@ final public class TableroController {
 
         if (clicks > 1) {
             final Letra letraVieja = colaPalSeleccionadas.peek();
-            final boolean isMovValido = Tablero.isVecino(letra, letraVieja);
+            /* es mov válido si es vecino y éste no está marcado */
+            final boolean isMovValido = Tablero.isVecino(letra, letraVieja)
+                                        && !letra.isMarcado();
             System.out.printf(
                     "Comparando -> %s: (%d, %d) | %s: (%d, %d) -> Válido: %b\n",
                     letra,

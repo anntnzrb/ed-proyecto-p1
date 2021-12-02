@@ -132,17 +132,15 @@ final public class Tablero {
      */
     public void addFila() {
         /* recordar que una fila es una CLL */
-        //final CircularDoublyLinkedList<Letra> newFilCLL =
-        //        genCLL(fil + extraCols);
-
         final CircularDoublyLinkedList<Letra> newFilCLL = new CircularDoublyLinkedList<>();
-        for (int i = 0; i < fil + extraFils; ++i) {
+
+        for (int i = 0; i < fil + extraCols; ++i) {
             final Letra letra = new Letra(Sistema.getRandomCharABC(true),
                                           fil + extraFils,
                                           i);
+
             newFilCLL.addLast(letra);
         }
-
         /* finalmente agregar la CLL con sus letras al tablero */
         tabla.addLast(newFilCLL);
 
@@ -154,14 +152,13 @@ final public class Tablero {
      * cada CLL del arreglo que las contiene.
      */
     public void addColumna() {
-        ///* recordar que una fila es una CLL */
-        //final CircularDoublyLinkedList<Letra> newColCLL =
-        //        genCLL(fil + extraFils);
+        /* recordar que una fila es una CLL */
         final CircularDoublyLinkedList<Letra> newColCLL = new CircularDoublyLinkedList<>();
 
         for (int i = 0; i < fil + extraFils; ++i) {
             final Letra letra = new Letra(Sistema.getRandomCharABC(true),
-                                          i, tabla.get(i).size());
+                                          i,
+                                          fil + extraCols);
 
             newColCLL.addLast(letra);
         }
@@ -176,6 +173,7 @@ final public class Tablero {
 
     /**
      * Remueve una fila del tablero.
+     * <p>
      * NOTA: Por predeterminado se remueve la última fila del tablero.
      */
     public void removeFila() {
@@ -201,7 +199,6 @@ final public class Tablero {
      *
      * @return una {@link CircularDoublyLinkedList}
      */
-    @Deprecated
     private CircularDoublyLinkedList<Letra> genCLL(final int size) {
         final CircularDoublyLinkedList<Letra> newCLL =
                 new CircularDoublyLinkedList<>();
@@ -234,6 +231,7 @@ final public class Tablero {
         final boolean checkArriba = y1 == y2 && (x2 - 1) == x1;
         final boolean checkAbajo = y1 == y2 && (x2 + 1) == x1;
 
+        /* si es la misma letra */
         if (letra1.equals(letra2)) {
             return false;
         }
