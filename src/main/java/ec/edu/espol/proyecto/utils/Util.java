@@ -20,6 +20,12 @@ public enum Util {
         return new Scene(loadFXML(fxml));
     }
 
+    /**
+     * Retorna un objeto @{@link FXMLLoader} para posteriormente cargarlo.
+     *
+     * @param fxml archivo de tipo FXML de la escena
+     * @return @{@link FXMLLoader}
+     */
     public static FXMLLoader getFXMLLoader(final String fxml) {
         return new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
     }

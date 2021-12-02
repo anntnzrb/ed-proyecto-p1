@@ -50,6 +50,7 @@ public enum Sistema {
      * @param archivo Archivo a analizar
      * @return String random de la colección
      */
+    @Deprecated
     public static String obtenerPalabra(final String archivo) {
         final List<String> listPalabras = leerArchivo(archivo);
 
@@ -64,6 +65,7 @@ public enum Sistema {
      * @param palabra palabra a analizar
      * @return caracter random de la palabra pasa por parámetro
      */
+    @Deprecated
     public static char obtenerCharPalabra(final String palabra) {
         return palabra.charAt(ThreadLocalRandom.current()
                                                .nextInt(palabra.length()));
@@ -95,6 +97,7 @@ public enum Sistema {
      * @param isUpperCase si se desea el valor del caracter en mayúsculas
      * @return String del alfabeto inglés
      */
+    @Deprecated
     public static String getRandomStringABC(final boolean isUpperCase) {
         return Character.toString(getRandomCharABC(isUpperCase));
     }
@@ -105,6 +108,7 @@ public enum Sistema {
      * @param palabra palabra a ser transformada a colección de caracteres
      * @return colección de caracteres
      */
+    @Deprecated
     public static List<Character> palComoCharList(final String palabra) {
         final List<Character> xs = new ArrayList<>();
         for (final char ch : palabra.toCharArray()) {
@@ -123,6 +127,7 @@ public enum Sistema {
      * @param xs  colección la cual sus elementso serán mezclados aleatoriamente
      * @param <T> tipo de la colección
      */
+    @Deprecated
     public static <T> void shuffleList(final List<T> xs) {
         final int xsSize = xs.size();
         for (int i = 0; i < xsSize; i++) {

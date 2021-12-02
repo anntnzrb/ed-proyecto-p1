@@ -12,14 +12,16 @@ import java.util.stream.IntStream;
 final public class Tablero {
     /* juego */
     /* cantidad de palabras máximas a generar */
-    private static final int                                        MAX_PALS_JUEGO = 14;
-    private final        int                                        fil;
-    private final        int                                        col;
+    public static final int MAX_PALS_JUEGO = 10;
+    private final       int fil;
+    private final       int col;
+
     /* colecciones */
-    private final        ArrayList<CircularDoublyLinkedList<Letra>> tabla;
-    private final        List<String>                               listPalabras;
-    private final        List<String>                               listPalabrasValidas;
-    private final        List<Character>                            letras;
+    private final ArrayList<CircularDoublyLinkedList<Letra>> tabla;
+    private final List<String>                               listPalabras;
+    private final List<String>                               listPalabrasValidas;
+    private final List<String>                               listPalabrasEncontradas;
+    private final List<Character>                            letras;
 
     /* cantidad de inserciones extras realizadas */
     private int extraFils;
@@ -41,6 +43,9 @@ final public class Tablero {
 
         /* lista de palabras válidas */
         listPalabrasValidas = new ArrayList<>();
+
+        /* lista de palabras marcadas (inicialmente vacía) */
+        listPalabrasEncontradas = new ArrayList<>();
 
         /*
          * crear una colección que contenga las MAX_PALS_JUEGO cantidad de
@@ -210,5 +215,9 @@ final public class Tablero {
 
     public List<String> getListPalabrasValidas() {
         return listPalabrasValidas;
+    }
+
+    public List<String> getListPalabrasEncontradas() {
+        return listPalabrasEncontradas;
     }
 }
