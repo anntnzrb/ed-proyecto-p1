@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 final public class Tablero {
     /* juego */
     /* cantidad de palabras máximas a generar */
-    public static final int MAX_PALS_JUEGO = 10;
+    public static final int MAX_PALS_JUEGO = 20;
     private final       int fil;
     private final       int col;
 

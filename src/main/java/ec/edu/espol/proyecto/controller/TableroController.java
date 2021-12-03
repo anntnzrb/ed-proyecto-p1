@@ -117,11 +117,10 @@ final public class TableroController {
     /**
      * Verificar si ha ganado el juego.
      *
-     * @return @{@code true} si se ha ganado el juego
+     * @return {@code true} si se ha ganado el juego
      */
     private boolean checkJuego() {
-        return tbl.getListPalabrasEncontradas().size()
-               == Tablero.MAX_PALS_JUEGO;
+        return tbl.getListPalabrasEncontradas().size() == 2;
     }
 
     /**
@@ -174,6 +173,7 @@ final public class TableroController {
      */
     public void checkMov(final Letra letra) {
         if (numErrores == 3) {
+            Util.err("Juego terminado, ya no tiene mas intentos", true);
             return;
         }
 
@@ -391,6 +391,9 @@ final public class TableroController {
                 /* agregar a lista de palabras encontradas */
                 tbl.getListPalabrasEncontradas().addLast(palabra);
 
+                colaPalSeleccionadas.clear();
+                clicks = 0;
+
                 /* actualizar */
                 actualizarJuego(true);
 
@@ -402,7 +405,8 @@ final public class TableroController {
                          true);
                 tbl.setPuntaje(tbl.getPuntaje() - palabra.length());
 
-                //colaPalSeleccionadas.forEach(this::desMarcarLetra);
+                colaPalSeleccionadas.clear();
+                clicks = 0;
 
                 /* actualizar */
                 actualizarJuego(false);
@@ -410,8 +414,6 @@ final public class TableroController {
 
             /* siempre se limpiará posterior a verificar */
             limpiarStrBld();
-            //colaPalSeleccionadas.clear();
-
         } else {
             Util.err("Juego terminado, ya no tiene mas intentos", true);
             stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
